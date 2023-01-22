@@ -5,7 +5,7 @@ RAPPER = rapper
 DOT    = dot
 PANDOC = pandoc
 RSYNC  = rsync
-ME     = ibis-tool
+ME     = graph-tool
 SITE   = doriantaylor.com:ms/vocab/
 
 target: variants dot readme
@@ -15,7 +15,7 @@ variants:
 	$(RAPPER) -i turtle -o rdfxml $(ME).ttl > $(ME).rdf
 
 dot:
-	for i in $(ME)*.dot ; do $(DOT) -Tsvg -o `echo $$i | sed 's/dot$$/svg/'` $$i ; $(DOT) -Tpng -o `echo $$i | sed 's/dot$$/png/'` $$i ; done
+	if [ -f *.dot ]; then for i in $(ME)*.dot ; do $(DOT) -Tsvg -o `echo $$i | sed 's/dot$$/svg/'` $$i ; $(DOT) -Tpng -o `echo $$i | sed 's/dot$$/png/'` $$i ; done; fi
 
 readme:
 	$(PANDOC) -f html -t gfm $(ME).xml > README.md

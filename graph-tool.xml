@@ -14,8 +14,8 @@
       prefix="rdf: http://www.w3.org/1999/02/22-rdf-syntax-ns# rdfs: http://www.w3.org/2000/01/rdf-schema# xsd: http://www.w3.org/2001/XMLSchema# owl: http://www.w3.org/2002/07/owl# dct: http://purl.org/dc/terms/ skos: http://www.w3.org/2004/02/skos/core# bibo: http://purl.org/ontology/bibo/ foaf: http://xmlns.com/foaf/0.1/ vann: http://purl.org/vocab/vann/ ibis: https://vocab.methodandstructure.com/ibis#"
       xml:lang="en" vocab="http://www.w3.org/1999/xhtml/vocab#">
   <head>
-    <title about="#" property="dct:title">IBIS Tool Vocabulary</title>
-    <base href="https://vocab.methodandstructure.com/ibis-tool"/>
+    <title about="#" property="dct:title">Collaborative Graph Tool Ontology</title>
+    <base href="https://vocab.methodandstructure.com/graph-tool"/>
     <link rel="xhv:up" href="/"/>
   </head>
   <body typeof="bibo:Webpage">
@@ -27,23 +27,48 @@
         <dd property="owl:versionInfo" datatype="xsd:string">0.1</dd>
         <dt>Created</dt>
         <dd property="dct:created" datatype="xsd:dateTime" content="2022-12-04T20:12:02Z">December 4, 2022</dd>
-        <!--
         <dt>Updated</dt>
-        <dd property="dct:modified" datatype="xsd:dateTime" content="2012-12-12T16:04:50-08:00">December 12, 2012</dd>
+        <dd property="dct:modified" datatype="xsd:dateTime" content="2023-01-22T02:09:02Z">January 21, 2023</dd>
+        <!--
         <dd property="dct:modified" datatype="xsd:dateTime" content="2014-02-24T21:14:13Z">February 24, 2014</dd>
         <dd property="dct:modified" datatype="xsd:dateTime" content="2018-02-22T03:39:14Z">February 22, 2018</dd>
         <dd property="dct:modified" datatype="xsd:dateTime" content="2019-03-24T22:37:22Z">March 24, 2019</dd>-->
         <dt>Namespace URI</dt>
-        <dd><a href="#">https://vocab.methodandstructure.com/ibis-tool#</a></dd>
+        <dd><a href="#">https://vocab.methodandstructure.com/graph-tool#</a></dd>
         <dt>Preferred Namespace Prefix</dt>
-        <dd><code about="#" property="vann:preferredNamespacePrefix" datatype="xsd:string">ibist</code></dd>
+        <dd><code about="#" property="vann:preferredNamespacePrefix" datatype="xsd:string">cgto</code></dd>
       </dl>
+      <p>The <abbr>IBIS</abbr> vocabulary is intended to only convey the essential semantic and topological content of an <abbr>IBIS</abbr> network. There are nevertheless additional constructs, that do not belong in the core vocabulary, that need to be expressed in order to fully operationalize the information in a piece of software. Such constructs include the users of the environment, and the graphical representation of the network itself, from colour palette to the relative (or absolute) geometry of the individual nodes.</p>
+      <p>(We might actually want to consider calling this not <q>IBIS tool ontology</q> and instead call it something like <q>collaborative graph editor ontology</q>.)</p>
+      <p>so what ingredients do we need?</p>
+      <ul>
+        <li>basic acl for users (view-only, comment, write; users themselves can be sioc that connects to foaf)</li>
+        <li>
+          <p>something that describes palettes for classes/properties/individuals (borrow selectors from shacl)</p>
+          <ul>
+            <li>should be able to describe some kind of matrix for eg class/property along one side (eg hue) and ui state (sat, lum) on the other</li>
+            <li>should be able to delta the colour palette</li>
+          </ul>
+        </li>
+        <li>some way to say how labels are constructed (can use loupe)</li>
+        <li>essential coordinate data for visual layouts (eg sugiyama rank/ordering)</li>
+        <li>consider different view states (eg clustering, edge contraction)</li>
+      </ul>
     </section>
     <section>
       <h2>Classes</h2>
-      <section id="Space" about="ibist:Space" typeof="owl:Class">
+      <section id="Space" about="cgto:Space" typeof="owl:Class">
         <h3 property="rdfs:label">Space</h3>
         <p property="rdfs:comment">An <abbr>IBIS</abbr> tool needs a shared logical space to lay out the argumentation network.</p>
+        <dl>
+          <dt>Subclass of:</dt>
+          <dd><a rel="rdfs:subClassOf" href="http://rdfs.org/sioc/ns#Space">sioc:Space</a></dd>
+        </dl>
+        <p><a rel="rdfs:isDefinedBy" href="#">Back to Top</a></p>
+      </section>
+      <section id="View" about="cgto:View" typeof="owl:Class">
+        <h3 property="rdfs:label">View</h3>
+        <p property="rdfs:comment">A partially or fully computed geometric view of a (sub)graph.</p>
         <dl>
           <dt>Subclass of:</dt>
           <dd><a rel="rdfs:subClassOf" href="http://rdfs.org/sioc/ns#Space">sioc:Space</a></dd>
