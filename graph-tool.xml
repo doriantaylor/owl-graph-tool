@@ -5,79 +5,336 @@
       xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
       xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
       xmlns:owl="http://www.w3.org/2002/07/owl#"
+      xmlns:sh="http://www.w3.org/ns/shacl#"
+      xmlns:xhv="http://www.w3.org/1999/xhtml/vocab#"
       xmlns:dct="http://purl.org/dc/terms/"
       xmlns:skos="http://www.w3.org/2004/02/skos/core#"
       xmlns:bibo="http://purl.org/ontology/bibo/"
+      xmlns:bs="http://purl.org/ontology/bibo/status/"
       xmlns:foaf="http://xmlns.com/foaf/0.1/"
       xmlns:vann="http://purl.org/vocab/vann/"
+      xmlns:qb="http://purl.org/linked-data/cube#"
       xmlns:ibis="https://vocab.methodandstructure.com/ibis#"
-      prefix="rdf: http://www.w3.org/1999/02/22-rdf-syntax-ns# rdfs: http://www.w3.org/2000/01/rdf-schema# xsd: http://www.w3.org/2001/XMLSchema# owl: http://www.w3.org/2002/07/owl# dct: http://purl.org/dc/terms/ skos: http://www.w3.org/2004/02/skos/core# bibo: http://purl.org/ontology/bibo/ foaf: http://xmlns.com/foaf/0.1/ vann: http://purl.org/vocab/vann/ ibis: https://vocab.methodandstructure.com/ibis#"
+      xmlns:cgto="https://vocab.methodandstructure.com/graph-tool#"
+      prefix="rdf: http://www.w3.org/1999/02/22-rdf-syntax-ns# rdfs: http://www.w3.org/2000/01/rdf-schema# xsd: http://www.w3.org/2001/XMLSchema# owl: http://www.w3.org/2002/07/owl# sh: http://www.w3.org/ns/shacl# xhv: http://www.w3.org/1999/xhtml/vocab# dct: http://purl.org/dc/terms/ skos: http://www.w3.org/2004/02/skos/core# bibo: http://purl.org/ontology/bibo/ bs: http://purl.org/ontology/bibo/status/ foaf: http://xmlns.com/foaf/0.1/ vann: http://purl.org/vocab/vann/ qb: http://purl.org/linked-data/cube# ibis: https://vocab.methodandstructure.com/ibis# cgto: https://vocab.methodandstructure.com/graph-tool#"
       xml:lang="en" vocab="http://www.w3.org/1999/xhtml/vocab#">
   <head>
     <title about="#" property="dct:title">Collaborative Graph Tool Ontology</title>
     <base href="https://vocab.methodandstructure.com/graph-tool"/>
+    <meta about="#" property="vann:preferredNamespacePrefix" content="cgto" datatype="xsd:token"/>
+    <link about="#" rel="rdfs:isDefinedBy bibo:uri" href="#"/>
+    <link rel="bibo:status" href="http://purl.org/ontology/bibo/status/draft"/>
     <link rel="xhv:up" href="/"/>
   </head>
-  <body typeof="bibo:Webpage">
-    <section about="#" typeof="owl:Ontology">
+  <body typeof="bibo:Specification">
+    <section rel="foaf:primaryTopic" resource="#" typeof="owl:Ontology">
       <dl>
         <dt>Author</dt>
-        <dd><a rel="dct:creator" href="https://doriantaylor.com/person/dorian-taylor#me"><span property="foaf:name">Dorian Taylor</span></a></dd>
+        <dd><a rel="dct:creator" href="https://doriantaylor.com/person/dorian-taylor#me" typeof="foaf:Person"><span property="foaf:name">Dorian Taylor</span></a></dd>
         <dt>Version</dt>
         <dd property="owl:versionInfo" datatype="xsd:string">0.1</dd>
         <dt>Created</dt>
         <dd property="dct:created" datatype="xsd:dateTime" content="2022-12-04T20:12:02Z">December 4, 2022</dd>
         <dt>Updated</dt>
         <dd property="dct:modified" datatype="xsd:dateTime" content="2023-01-22T02:09:02Z">January 21, 2023</dd>
-        <!--
-        <dd property="dct:modified" datatype="xsd:dateTime" content="2014-02-24T21:14:13Z">February 24, 2014</dd>
-        <dd property="dct:modified" datatype="xsd:dateTime" content="2018-02-22T03:39:14Z">February 22, 2018</dd>
-        <dd property="dct:modified" datatype="xsd:dateTime" content="2019-03-24T22:37:22Z">March 24, 2019</dd>-->
+        <dd property="dct:modified" datatype="xsd:dateTime" content="2023-12-12T21:48:55Z">December 12, 2023</dd>
         <dt>Namespace URI</dt>
-        <dd><a href="#">https://vocab.methodandstructure.com/graph-tool#</a></dd>
+        <dd><a about="#" rel="sh:namespace vann:preferredNamespaceUri" href="#"><code>https://vocab.methodandstructure.com/graph-tool#</code></a></dd>
         <dt>Preferred Namespace Prefix</dt>
-        <dd><code about="#" property="vann:preferredNamespacePrefix" datatype="xsd:string">cgto</code></dd>
+        <dd><code about="#" property="sh:prefix vann:preferredNamespacePrefix" datatype="xsd:token">cgto</code></dd>
       </dl>
-      <p>The <abbr>IBIS</abbr> vocabulary is intended to only convey the essential semantic and topological content of an <abbr>IBIS</abbr> network. There are nevertheless additional constructs, that do not belong in the core vocabulary, that need to be expressed in order to fully operationalize the information in a piece of software. Such constructs include the users of the environment, and the graphical representation of the network itself, from colour palette to the relative (or absolute) geometry of the individual nodes.</p>
-      <p>(We might actually want to consider calling this not <q>IBIS tool ontology</q> and instead call it something like <q>collaborative graph editor ontology</q>.)</p>
-      <p>so what ingredients do we need?</p>
+      <p>Ontologies like <a href="ibis#">the <abbr>IBIS</abbr> vocabulary</a> are intended to only convey their essential semantic content. There are nevertheless additional constructs, that do not belong in the core vocabulary, that need to be expressed in order to fully operationalize the information it describes as a piece of user-facing software. Such constructs include the users of the environment, and the graphical representation of the network itself, from colour palette to the relative (or absolute) geometry of the individual nodes.</p>
+      <p>so what ingredients do we know we need?</p>
       <ul>
-        <li>basic acl for users (view-only, comment, write; users themselves can be sioc that connects to foaf)</li>
+        <li>basic <abbr>ACL</abbr> for users (e.g. view-only, comment, write; users themselves can be <abbr>SIOC</abbr> that connects to <abbr>FOAF</abbr>)</li>
         <li>
-          <p>something that describes palettes for classes/properties/individuals (borrow selectors from shacl)</p>
+          <p>something that describes colour palettes for classes/properties/individuals (borrow selectors from <abbr>SHACL</abbr>)</p>
           <ul>
-            <li>should be able to describe some kind of matrix for eg class/property along one side (eg hue) and ui state (sat, lum) on the other</li>
-            <li>should be able to delta the colour palette</li>
+            <li>should be able to derive palettes from rules</li>
+            <li>should be able to describe some kind of matrix for eg class/property along one side (eg hue) and ui state (eg sat, lum) on the other</li>
+            <li>should be able to delta the colour palette for subclasses etc</li>
           </ul>
         </li>
         <li>some way to say how labels are constructed (can use loupe)</li>
         <li>essential coordinate data for visual layouts (eg sugiyama rank/ordering)</li>
         <li>consider different view states (eg clustering, edge contraction)</li>
       </ul>
+      <p>With respect to the graph itself, the goal of this vocabulary is to provide just the information that only needs to be computed when the graph's content is changed, so the computations can be cached and used as inputs to more than one view.</p>
     </section>
     <section>
       <h2>Classes</h2>
+      <figure>
+        <object data="graph-tool-classes.svg"><img src="graph-tool-classes" alt=""/></object>
+        <figcaption>
+          <p>This diagram shows the classes and properties defined in this document using solid lines, and third-party classes and properties using dashed lines.</p>
+        </figcaption>
+      </figure>
       <section id="Space" about="cgto:Space" typeof="owl:Class">
-        <h3 property="rdfs:label">Space</h3>
-        <p property="rdfs:comment">An <abbr>IBIS</abbr> tool needs a shared logical space to lay out the argumentation network.</p>
+        <h3><code property="rdfs:label" datatype="xsd:token">Space</code></h3>
+        <p property="rdfs:comment">A graph tool needs a shared logical space to lay out its universe of discourse.</p>
         <dl>
           <dt>Subclass of:</dt>
-          <dd><a rel="rdfs:subClassOf" href="http://rdfs.org/sioc/ns#Space">sioc:Space</a></dd>
+          <dd><a rel="rdfs:subClassOf" resource="sioc:Space" href="http://rdfs.org/sioc/spec/#term_Space"><code>sioc:Space</code></a></dd>
         </dl>
         <p><a rel="rdfs:isDefinedBy" href="#">Back to Top</a></p>
       </section>
       <section id="View" about="cgto:View" typeof="owl:Class">
-        <h3 property="rdfs:label">View</h3>
-        <p property="rdfs:comment">A partially or fully computed geometric view of a (sub)graph.</p>
+        <h3><code property="rdfs:label" datatype="xsd:token">View</code></h3>
+        <p property="rdfs:comment">A partially or fully computed geometric rendering of a (sub)graph, or the structured information needed to do so.</p>
+        <!--
+            <dl>
+            <dt>Subclass of:</dt>
+            <dd><a rel="rdfs:subClassOf" href="http://rdfs.org/sioc/ns#Space">sioc:Space</a></dd>
+            </dl>-->
+        <p><a rel="rdfs:isDefinedBy" href="#">Back to Top</a></p>
+      </section>
+      <section id="Error" about="cgto:Error" typeof="owl:Class">
+        <h3><code property="rdfs:label" datatype="xsd:token">Error</code></h3>
+        <p property="rdfs:comment">An error is a type of <code>cgto:View</code> the tool can send the user when something is wrong. It is more suitable to send as a response <em>body</em> than <code>http:Response</code>, which would be problematically self-referential.</p>
         <dl>
           <dt>Subclass of:</dt>
-          <dd><a rel="rdfs:subClassOf" href="http://rdfs.org/sioc/ns#Space">sioc:Space</a></dd>
+          <dd><a rel="rdfs:subClassOf" href="#View"><code>cgto:View</code></a></dd>
+        </dl>
+        <p><a rel="rdfs:isDefinedBy" href="#">Back to Top</a></p>
+      </section>
+      <section id="Index" about="cgto:Index" typeof="owl:Class">
+        <h3><code property="rdfs:label" datatype="xsd:token">Index</code></h3>
+        <p property="rdfs:comment">An index relates a <code>cgto:Space</code> to a set of <code>cgto:Inventory</code> resources, via a set of <code>cgto:Summary</code> resources.</p>
+        <dl>
+          <dt>Subclass of:</dt>
+          <dd><a rel="rdfs:subClassOf" resource="sioc:Container"  href="http://rdfs.org/sioc/spec/#term_Container"><code>sioc:Container</code></a></dd>
+        </dl>
+        <p><a rel="rdfs:isDefinedBy" href="#">Back to Top</a></p>
+      </section>
+      <section id="Inventory" about="cgto:Inventory" typeof="owl:Class">
+        <h3><code property="rdfs:label" datatype="xsd:token">Inventory</code></h3>
+        <p property="rdfs:comment">An inventory is a de facto grouping of resources according to some criterion.</p>
+        <dl>
+          <dt>Subclass of:</dt>
+          <dd><a rel="rdfs:subClassOf" resource="sioc:Container"  href="http://rdfs.org/sioc/spec/#term_Container"><code>sioc:Container</code></a></dd>
+        </dl>
+        <p><a rel="rdfs:isDefinedBy" href="#">Back to Top</a></p>
+      </section>
+      <section id="Summary" about="cgto:Summary" typeof="owl:Class">
+        <h3><code property="rdfs:label" datatype="xsd:token">Summary</code></h3>
+        <p property="rdfs:comment">A summary indexes the available <code>cgto:Inventory</code> resources.</p>
+        <dl>
+          <dt>Subclass of:</dt>
+          <dd><a rel="rdfs:subClassOf" resource="qb:DataSet" href="https://www.w3.org/TR/vocab-data-cube/#reference-datasets"><code>qb:DataSet</code></a></dd>
         </dl>
         <p><a rel="rdfs:isDefinedBy" href="#">Back to Top</a></p>
       </section>
     </section>
     <section>
       <h2>Properties</h2>
+      <figure>
+        <object type="image/svg+xml" data="graph-tool-properties.svg"><img src="graph-tool-properties" alt=""/></object>
+        <figcaption>
+          <p>This diagram depicts the ontology from the point of view of its properties.</p>
+        </figcaption>
+      </figure>
+      <section id="focus" about="cgto:focus" typeof="owl:ObjectProperty owl:FunctionalProperty">
+        <h3><code property="rdfs:label" datatype="xsd:token">focus</code></h3>
+        <p property="rdfs:comment">The entity that takes primary focus in the space is what will be shown, e.g. on the front page of a Web app.</p>
+        <dl>
+          <dt>Domain:</dt>
+          <dd><a rel="rdfs:domain" href="#Space"><code>cgto:Space</code></a></dd>
+          <dt>Sub-property of:</dt>
+          <dd><a rel="rdfs:subPropertyOf" resource="http://rdfs.org/sioc/ns#space_of" href="http://rdfs.org/sioc/spec/#term_Space"><code>sioc:space_of</code></a></dd>
+        </dl>
+        <p><a rel="rdfs:isDefinedBy" href="#">Back to Top</a></p>
+      </section>
+      <section id="view" about="cgto:view" typeof="owl:ObjectProperty">
+        <h3><code property="rdfs:label" datatype="xsd:token">view</code></h3>
+        <p property="rdfs:comment">Relates the space to a view of said space.</p>
+        <dl>
+          <dt>Domain:</dt>
+          <dd><a rel="rdfs:domain" href="#Space"><code>cgto:Space</code></a></dd>
+          <dt>Range:</dt>
+          <dd><a rel="rdfs:range" href="#View"><code>cgto:View</code></a></dd>
+          <dt>Sub-property of:</dt>
+          <dd><a rel="rdfs:subPropertyOf" resource="http://rdfs.org/sioc/ns#space_of" href="http://rdfs.org/sioc/spec/#term_space_of"><code>sioc:space_of</code></a></dd>
+          <dt>Inverse of:</dt>
+          <dd><a rel="owl:inverseOf" href="#view-of"><code>cgto:view-of</code></a></dd>
+        </dl>
+        <p><a rel="rdfs:isDefinedBy" href="#">Back to Top</a></p>
+      </section>
+      <section id="view-of" about="cgto:view-of" typeof="owl:ObjectProperty owl:FunctionalProperty">
+        <h3><code property="rdfs:label" datatype="xsd:token">view-of</code></h3>
+        <p property="rdfs:comment">Relates a view back to its <code>cgto:Space</code>.</p>
+        <dl>
+          <dt>Domain:</dt>
+          <dd><a rel="rdfs:domain" href="#View"><code>cgto:View</code></a></dd>
+          <dt>Range:</dt>
+          <dd><a rel="rdfs:range" href="#Space"><code>cgto:Space</code></a></dd>
+          <dt>Sub-property of:</dt>
+          <dd><a rel="rdfs:subPropertyOf" resource="http://rdfs.org/sioc/ns#has_space" href="http://rdfs.org/sioc/spec/#term_has_space"><code>sioc:has_space</code></a></dd>
+          <dt>Inverse of:</dt>
+          <dd><a rel="owl:inverseOf" href="#view"><code>cgto:view</code></a></dd>
+        </dl>
+        <p><a rel="rdfs:isDefinedBy" href="#">Back to Top</a></p>
+      </section>
+      <section id="index" about="cgto:index" typeof="owl:ObjectProperty owl:FunctionalProperty">
+        <h3><code property="rdfs:label" datatype="xsd:token">index</code></h3>
+        <p property="rdfs:comment">Connects the <code>cgto:Space</code> to its <code>cgto:Index</code> of resources.</p>
+        <dl>
+          <dt>Domain:</dt>
+          <dd><a rel="rdfs:domain" href="#Space"><code>cgto:Space</code></a></dd>
+          <dt>Range:</dt>
+          <dd><a rel="rdfs:range" href="#Index"><code>cgto:Index</code></a></dd>
+          <dt>Sub-property of:</dt>
+          <dd><a rel="rdfs:subPropertyOf" resource="sioc:space_of" href="http://rdfs.org/sioc/spec/#term_space_of"><code>sioc:space_of</code></a></dd>
+          <dd><a rel="rdfs:subPropertyOf" resource="xhv:index" href="https://www.w3.org/1999/xhtml/vocab#index"><code>xhv:index</code></a></dd>
+        </dl>
+        <p><a rel="rdfs:isDefinedBy" href="#">Back to Top</a></p>
+      </section>
+      <section id="summary" about="cgto:summary" typeof="owl:ObjectProperty">
+        <h3><code property="rdfs:label" datatype="xsd:token">summary</code></h3>
+        <p property="rdfs:comment">Connects the <code>cgto:Space</code> to its <code>cgto:Index</code> of resources.</p>
+        <dl>
+          <dt>Domain:</dt>
+          <dd><a rel="rdfs:domain" href="#Index"><code>cgto:Index</code></a></dd>
+          <dt>Range:</dt>
+          <dd><a rel="rdfs:range" href="#Summary"><code>cgto:Summary</code></a></dd>
+          <dt>Sub-property of:</dt>
+          <dd><a rel="rdfs:subPropertyOf" resource="http://rdfs.org/sioc/ns#parent_of" href="http://rdfs.org/sioc/spec/#term_parent_of"><code>sioc:parent_of</code></a></dd>
+        </dl>
+        <p><a rel="rdfs:isDefinedBy" href="#">Back to Top</a></p>
+      </section>
+      <section id="by-class" about="cgto:by-class" typeof="owl:ObjectProperty owl:FunctionalProperty">
+        <h3><code property="rdfs:label" datatype="xsd:token">by-class</code></h3>
+        <p property="rdfs:comment">Specifies the index of inventories organized by <code>rdfs:Class</code>.</p>
+        <dl>
+          <dt>Domain:</dt>
+          <dd><a rel="rdfs:domain" href="#Index"><code>cgto:Index</code></a></dd>
+          <dt>Range:</dt>
+          <dd><a rel="rdfs:range" href="#Summary"><code>cgto:Summary</code></a></dd>
+          <dt>Sub-property of:</dt>
+          <dd><a rel="rdfs:subPropertyOf" href="#summary"><code>cgto:summary</code></a></dd>
+        </dl>
+        <p><a rel="rdfs:isDefinedBy" href="#">Back to Top</a></p>
+      </section>
+      <section id="by-property" about="cgto:by-property" typeof="owl:ObjectProperty owl:FunctionalProperty">
+        <h3><code property="rdfs:label" datatype="xsd:token">by-property</code></h3>
+        <p property="rdfs:comment">Connects the <code>cgto:Space</code> to its <code>cgto:Index</code> of resources.</p>
+        <dl>
+          <dt>Domain:</dt>
+          <dd><a rel="rdfs:domain" href="#Index"><code>cgto:Index</code></a></dd>
+          <dt>Range:</dt>
+          <dd><a rel="rdfs:range" href="#Summary"><code>cgto:Summary</code></a></dd>
+          <dt>Sub-property of:</dt>
+          <dd><a rel="rdfs:subPropertyOf" href="#summary"><code>cgto:summary</code></a></dd>
+        </dl>
+        <p><a rel="rdfs:isDefinedBy" href="#">Back to Top</a></p>
+      </section>
+    </section>
+    <section>
+      <h2>Inventory Summaries</h2>
+      <p>We use the <a about="#" rel="owl:imports" resource="qb:" href="https://www.w3.org/TR/vocab-data-cube/">Data Cube Ontology</a> to summarize and enumerate the resource inventories.</p>
+      <section>
+        <h3>Data Structure Definitions</h3>
+        <p>Data sets are described by data structure definitions which specify different component properties.</p>
+        <section id="resources-by-class" about="cgto:resources-by-class" typeof="qb:DataStructureDefinition">
+          <h4 property="rdfs:label">Resources by Class</h4>
+          <p property="rdfs:comment">This structure describes a data set that tabulates subject resources of a certain <code>rdf:type</code>.</p>
+          <dl rel="qb:component">
+            <dt>Components:</dt>
+            <dd typeof="qb:ComponentSpecification"><a rel="qb:dimension" href="#class"><code>cgto:class</code></a></dd>
+            <dd typeof="qb:ComponentSpecification"><a rel="qb:attribute" href="#subjects"><code>cgto:subjects</code></a></dd>
+            <dd typeof="qb:ComponentSpecification"><a rel="qb:measure" href="#subject-count"><code>cgto:subject-count</code></a></dd>
+          </dl>
+        </section>
+        <section id="resources-by-property" about="cgto:resources-by-property" typeof="qb:DataStructureDefinition">
+          <h4 property="rdfs:label">Resources by Property</h4>
+          <p property="rdfs:comment">This structure describes a data set that tabulates both subject and object resources by property (predicate).</p>
+          <dl rel="qb:component">
+            <dt>Components:</dt>
+            <dd typeof="qb:ComponentSpecification"><a rel="qb:dimension" href="#property"><code>cgto:property</code></a></dd>
+            <dd typeof="qb:ComponentSpecification"><a rel="qb:attribute" href="#subjects"><code>cgto:subjects</code></a></dd>
+            <dd typeof="qb:ComponentSpecification"><a rel="qb:measure" href="#subject-count"><code>cgto:subject-count</code></a></dd>
+            <dd typeof="qb:ComponentSpecification"><a rel="qb:attribute" href="#objects"><code>cgto:objects</code></a></dd>
+            <dd typeof="qb:ComponentSpecification"><a rel="qb:measure" href="#object-count"><code>cgto:object-count</code></a></dd>
+          </dl>
+        </section>
+      </section>
+      <section>
+        <h3>Dimension Properties</h3>
+        <p>Dimension properties denote the axes along which the data set can be partitioned.</p>
+        <section id="class" about="cgto:class" typeof="qb:DimensionProperty owl:ObjectProperty">
+          <h4><code property="rdfs:label" datatype="xsd:token">class</code></h4>
+          <p property="rdfs:comment">Specifies the <code>owl:Class</code> found in the <code>rdf:type</code> of the subjects.</p>
+          <dl>
+            <dt>Domain:</dt>
+            <dd><a rel="rdfs:domain" resource="qb:Observation" href="https://www.w3.org/TR/vocab-data-cube/#ref_qb_Observation"><code>qb:Observation</code></a></dd>
+            <dt>Range:</dt>
+            <dd><a rel="rdfs:range" resource="rdfs:Class" href="https://www.w3.org/TR/rdf-schema/#ch_class"><code>rdfs:Class</code></a></dd>
+          </dl>
+          <p><a rel="rdfs:isDefinedBy" href="#">Back to Top</a></p>
+        </section>
+        <section id="property" about="cgto:property" typeof="qb:DimensionProperty owl:ObjectProperty">
+          <h4><code property="rdfs:label" datatype="xsd:token">property</code></h4>
+          <p property="rdfs:comment">Specifies the property (predicate) in the statements from which subject and object resources are enumerated.</p>
+          <dl>
+            <dt>Domain:</dt>
+            <dd><a rel="rdfs:domain" resource="qb:Observation" href="https://www.w3.org/TR/vocab-data-cube/#ref_qb_Observation"><code>qb:Observation</code></a></dd>
+            <dt>Range:</dt>
+            <dd><a rel="rdfs:range" resource="rdf:Property" href="https://www.w3.org/TR/rdf-schema/#ch_property"><code>rdf:Property</code></a></dd>
+          </dl>
+          <p><a rel="rdfs:isDefinedBy" href="#">Back to Top</a></p>
+        </section>
+      </section>
+      <section>
+        <h3>Measure Properties</h3>
+        <p>Measure properties record the experimental data, which in this case amounts to counts of resources.</p>
+        <section id="subject-count" about="cgto:subject-count" typeof="qb:MeasureProperty owl:DatatypeProperty">
+          <h4><code property="rdfs:label" datatype="xsd:token">subject-count</code></h4>
+          <p property="rdfs:comment">Specifies the number of subject resources in the selection criterion.</p>
+          <dl>
+            <dt>Domain:</dt>
+            <dd><a rel="rdfs:domain" resource="qb:Observation" href="https://www.w3.org/TR/vocab-data-cube/#ref_qb_Observation"><code>qb:Observation</code></a></dd>
+            <dt>Range:</dt>
+            <dd><a rel="rdfs:range" resource="xsd:nonNegativeInteger" href="https://www.w3.org/TR/xmlschema-2/#nonNegativeInteger"><code>xsd:nonNegativeInteger</code></a></dd>
+          </dl>
+          <p><a rel="rdfs:isDefinedBy" href="#">Back to Top</a></p>
+        </section>
+        <section id="object-count" about="cgto:object-count" typeof="qb:MeasureProperty owl:DatatypeProperty">
+          <h4><code property="rdfs:label" datatype="xsd:token">object-count</code></h4>
+          <p property="rdfs:comment">Specifies the number of object resources in the selection criterion.</p>
+          <dl>
+            <dt>Domain:</dt>
+            <dd><a rel="rdfs:domain" resource="qb:Observation" href="https://www.w3.org/TR/vocab-data-cube/#ref_qb_Observation"><code>qb:Observation</code></a></dd>
+            <dt>Range:</dt>
+            <dd><a rel="rdfs:range" resource="xsd:nonNegativeInteger" href="https://www.w3.org/TR/xmlschema-2/#nonNegativeInteger"><code>xsd:nonNegativeInteger</code></a></dd>
+          </dl>
+          <p><a rel="rdfs:isDefinedBy" href="#">Back to Top</a></p>
+        </section>
+      </section>
+      <section>
+        <h3>Attribute Properties</h3>
+        <p>Attribute properties are used to qualify the data. In this case they are being appropriated to link to the actual inventories of resources.</p>
+        <section id="subjects" about="cgto:subjects" typeof="qb:AttributeProperty owl:ObjectProperty">
+          <h4><code property="rdfs:label" datatype="xsd:token">subjects</code></h4>
+          <p property="rdfs:comment"></p>
+          <dl>
+            <dt>Domain:</dt>
+            <dd><a rel="rdfs:domain" resource="qb:Observation" href="https://www.w3.org/TR/vocab-data-cube/#ref_qb_Observation"><code>qb:Observation</code></a></dd>
+            <dt>Range:</dt>
+            <dd><a rel="rdfs:range" href="#Inventory"><code>cgto:Inventory</code></a></dd>
+          </dl>
+          <p><a rel="rdfs:isDefinedBy" href="#">Back to Top</a></p>
+        </section>
+        <section id="objects" about="cgto:objects" typeof="qb:AttributeProperty owl:ObjectProperty">
+          <h4><code property="rdfs:label" datatype="xsd:token">objects</code></h4>
+          <p property="rdfs:comment"></p>
+          <dl>
+            <dt>Domain:</dt>
+            <dd><a rel="rdfs:domain" resource="qb:Observation" href="https://www.w3.org/TR/vocab-data-cube/#ref_qb_Observation"><code>qb:Observation</code></a></dd>
+            <dt>Range:</dt>
+            <dd><a rel="rdfs:range" href="#Inventory"><code>cgto:Inventory</code></a></dd>
+          </dl>
+          <p><a rel="rdfs:isDefinedBy" href="#">Back to Top</a></p>
+        </section>
+      </section>
     </section>
   </body>
 </html>

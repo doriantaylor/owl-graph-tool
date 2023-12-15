@@ -1,0 +1,44 @@
+digraph classes {
+    graph [bgcolor=transparent,rankdir=LR];
+    node [shape=box,color="#000000",fontcolor="#000000",fontname="Lucida Grande, Lucida Sans Unicode, sans-serif",target="_parent"];
+    edge [fontsize=10,concentrate=true,color="#000000",fontcolor="#000000",fontname="Lucida Grande, Lucida Sans Unicode, sans-serif"];
+
+    subgraph {
+        node [style=dashed];
+
+        rdfs_Resource [label="rdfs:Resource", href="https://www.w3.org/TR/rdf-schema/#ch_resource"];
+        // owl_Thing [label="owl:Thing",href="https://www.w3.org/TR/2012/REC-owl2-syntax-20121211/#a_Thing"];
+
+        sioc_Space [label="sioc:Space", href="http://rdfs.org/spec/#term_Space"];
+        sioc_Container [label="sioc:Container", href="http://rdfs.org/spec/#term_Container"];
+        qb_DataSet [label="qb:DataSet", href="https://www.w3.org/TR/vocab-data-cube/#reference-datasets"];
+        qb_Observation [label="qb:Observation", href="https://www.w3.org/TR/vocab-data-cube/#reference-observations"];
+    }
+
+    cgto_Space [label="cgto:Space", href="https://vocab.methodandstructure.com/graph-tool#Space"];
+    cgto_View [label="cgto:View", href="https://vocab.methodandstructure.com/graph-tool#View"];
+    cgto_Error [label="cgto:Error", href="https://vocab.methodandstructure.com/graph-tool#Error"];
+    cgto_Index [label="cgto:Index", href="https://vocab.methodandstructure.com/graph-tool#Index"];
+    cgto_Summary [label="cgto:Summary", href="https://vocab.methodandstructure.com/graph-tool#Summary"];
+    cgto_Inventory [label="cgto:Inventory", href="https://vocab.methodandstructure.com/graph-tool#Inventory"];
+
+    cgto_Space -> rdfs_Resource [label="cgto:focus"];
+    cgto_Space -> cgto_Index [label="cgto:index"];
+    cgto_Space -> cgto_View [label="cgto:view"];
+    cgto_Index -> cgto_Summary [label="cgto:summary,\ncgto:by-subject,\ncgto:by-object"];
+    qb_Observation -> cgto_Inventory [label="cgto:subjects,\ncgto:objects"];
+
+    subgraph {
+        edge [style=dashed, label="rdfs:subClassOf"];
+        cgto_Space -> sioc_Space;
+        cgto_Error -> cgto_View;
+        cgto_Index -> sioc_Container;
+        cgto_Inventory -> sioc_Container;
+        cgto_Summary -> qb_DataSet;
+    }
+
+    subgraph {
+        edge [style=dashed];
+        qb_Observation -> cgto_Summary [label="qb:dataSet"];
+    }
+}

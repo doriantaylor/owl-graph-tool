@@ -1,0 +1,80 @@
+digraph {
+    graph [bgcolor=transparent,rankdir=TB];
+    node [shape=box,style=rounded,color="#000000",fontcolor="#000000",fontname="Lucida Grande, Lucida Sans Unicode, sans-serif"];
+    edge [concentrate=true,color="#000000",fontcolor="#000000",fontname="Lucida Grande, Lucida Sans Unicode, sans-serif"];
+
+    // third-party classes
+
+    subgraph {
+        node [shape=box, style=dashed];
+        rdfs_Resource [label="rdfs:Resource", href="https://www.w3.org/TR/rdf-schema/#ch_resource"];
+        qb_Observation [label="qb:Observation", href="https://www.w3.org/TR/vocab-data-cube/#reference-observations"];
+    }
+
+    // our classes
+
+    subgraph {
+        node [shape=box, style=""];
+        cgto_Space [label="cgto:Space", href="https://vocab.methodandstructure.com/graph-tool#Space"];
+        cgto_View [label="cgto:View", href="https://vocab.methodandstructure.com/graph-tool#View"];
+        // cgto_Error [label="cgto:Error", href="https://vocab.methodandstructure.com/graph-tool#Error"];
+        cgto_Index [label="cgto:Index", href="https://vocab.methodandstructure.com/graph-tool#Index"];
+        cgto_Summary [label="cgto:Summary", href="https://vocab.methodandstructure.com/graph-tool#Summary"];
+        cgto_Inventory [label="cgto:Inventory", href="https://vocab.methodandstructure.com/graph-tool#Inventory"];
+    }
+
+    // third-party properties
+
+    subgraph {
+        node [style="dashed,rounded"];
+        sioc_space_of [label="sioc:space_of", href="http://rdfs.org/spec/#term_space_of"];
+        sioc_parent_of [label="sioc:parent_of", href="http://rdfs.org/spec/#term_parent_of"];
+        qb_dataSet [label="qb:dataSet", href="https://www.w3.org/TR/vocab-data-cube/#reference-observations"];
+    }
+
+    // our properties
+
+    cgto_focus [label="cgto:focus", href="https://vocab.methodandstructure.com/graph-tool#focus"];
+    cgto_index [label="cgto:index", href="https://vocab.methodandstructure.com/graph-tool#index"];
+    cgto_view  [label="cgto:view",  href="https://vocab.methodandstructure.com/graph-tool#view"];
+    cgto_summary [label="cgto:summary",  href="https://vocab.methodandstructure.com/graph-tool#summary"];
+    cgto_by_class [label="cgto:by-class",  href="https://vocab.methodandstructure.com/graph-tool#by-class"];
+    cgto_by_property [label="cgto:by-property",  href="https://vocab.methodandstructure.com/graph-tool#by-property"];
+    cgto_subjects [label="cgto:subjects",  href="https://vocab.methodandstructure.com/graph-tool#subjects"];
+    cgto_objects [label="cgto:objects",  href="https://vocab.methodandstructure.com/graph-tool#objects"];
+
+    // relations
+
+    subgraph {
+        edge [style=dashed, label="rdfs:subPropertyOf"];
+        cgto_focus -> sioc_space_of;
+        cgto_by_class -> cgto_summary -> sioc_parent_of;
+        cgto_by_property -> cgto_summary;
+    }
+
+    subgraph {
+        edge [style=dashed, dir=back, label="rdfs:domain"];
+        cgto_Space -> cgto_focus;
+        cgto_Space -> cgto_view;
+        cgto_Space -> cgto_index;
+        cgto_Index -> cgto_summary;
+        cgto_Index -> cgto_by_class;
+        cgto_Index -> cgto_by_property;
+        qb_Observation -> qb_dataSet;
+        qb_Observation -> cgto_subjects;
+        qb_Observation -> cgto_objects;
+    }
+
+    subgraph {
+        edge [style=dashed, label="rdfs:range"];
+        cgto_focus -> rdfs_Resource;
+        cgto_view -> cgto_View;
+        cgto_index -> cgto_Index;
+        cgto_summary -> cgto_Summary;
+        cgto_by_class -> cgto_Summary;
+        cgto_by_property -> cgto_Summary;
+        qb_dataSet -> cgto_Summary;
+        cgto_subjects -> cgto_Inventory;
+        cgto_objects -> cgto_Inventory;
+    }
+}
