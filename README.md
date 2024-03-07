@@ -270,8 +270,12 @@ Range:
 rel="rdfs:range"><code>cgto:Index</code></a>
 
 Sub-property of:  
-<a href="http://rdfs.org/sioc/spec/#term_Space" rel="rdfs:subPropertyOf"
-resource="http://rdfs.org/sioc/ns#space_of"><code>sioc:space_of</code></a>
+<a href="http://rdfs.org/sioc/spec/#term_space_of"
+rel="rdfs:subPropertyOf"
+resource="sioc:space_of"><code>sioc:space_of</code></a>
+
+<a href="https://www.w3.org/1999/xhtml/vocab#index"
+rel="rdfs:subPropertyOf" resource="xhv:index"><code>xhv:index</code></a>
 
 <a href="https://vocab.methodandstructure.com/graph-tool#"
 rel="rdfs:isDefinedBy">Back to Top</a>
