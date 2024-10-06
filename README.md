@@ -7,7 +7,7 @@ rel="dct:creator" typeof="foaf:Person"><span property="foaf:name">Dorian
 Taylor</span></a>
 
 Version  
-0.1
+0.2
 
 Created  
 December 4, 2022
@@ -16,6 +16,8 @@ Updated
 January 21, 2023
 
 December 12, 2023
+
+October 6, 2024
 
 Namespace URI  
 <a href="https://vocab.methodandstructure.com/graph-tool#" about="#"
@@ -36,24 +38,23 @@ geometry of the individual nodes.
 
 so what ingredients do we know we need?
 
--   basic ACL for users (e.g. view-only, comment, write; users
-    themselves can be SIOC that connects to FOAF)
+- basic ACL for users (e.g. view-only, comment, write; users themselves
+  can be SIOC that connects to FOAF)
 
--   something that describes colour palettes for
-    classes/properties/individuals (borrow selectors from SHACL)
+- something that describes colour palettes for
+  classes/properties/individuals (borrow selectors from SHACL)
 
-    -   should be able to derive palettes from rules
-    -   should be able to describe some kind of matrix for eg
-        class/property along one side (eg hue) and ui state (eg sat,
-        lum) on the other
-    -   should be able to delta the colour palette for subclasses etc
+  - should be able to derive palettes from rules
+  - should be able to describe some kind of matrix for eg class/property
+    along one side (eg hue) and ui state (eg sat, lum) on the other
+  - should be able to delta the colour palette for subclasses etc
 
--   some way to say how labels are constructed (can use loupe)
+- some way to say how labels are constructed (can use loupe)
 
--   essential coordinate data for visual layouts (eg sugiyama
-    rank/ordering)
+- essential coordinate data for visual layouts (eg sugiyama
+  rank/ordering)
 
--   consider different view states (eg clustering, edge contraction)
+- consider different view states (eg clustering, edge contraction)
 
 With respect to the graph itself, the goal of this vocabulary is to
 provide just the information that only needs to be computed when the
@@ -66,9 +67,12 @@ as inputs to more than one view.
 
 ## Classes
 
-![This diagram shows the classes and properties defined in this document
-using solid lines, and third-party classes and properties using dashed
-lines.](https://vocab.methodandstructure.com/graph-tool-classes)
+<figure>
+<img src="https://vocab.methodandstructure.com/graph-tool-classes" />
+<figcaption><p>This diagram shows the classes and properties defined in
+this document using solid lines, and third-party classes and properties
+using dashed lines.</p></figcaption>
+</figure>
 
 <div id="Space" class="section" about="cgto:Space" typeof="owl:Class">
 
@@ -172,8 +176,11 @@ rel="rdfs:isDefinedBy">Back to Top</a>
 
 ## Properties
 
-![This diagram depicts the ontology from the point of view of its
-properties.](https://vocab.methodandstructure.com/graph-tool-properties)
+<figure>
+<img src="https://vocab.methodandstructure.com/graph-tool-properties" />
+<figcaption><p>This diagram depicts the ontology from the point of view
+of its properties.</p></figcaption>
+</figure>
 
 <div id="focus" class="section" about="cgto:focus"
 typeof="owl:ObjectProperty owl:FunctionalProperty">
@@ -187,9 +194,40 @@ Domain:
 <a href="https://vocab.methodandstructure.com/graph-tool#Space"
 rel="rdfs:domain"><code>cgto:Space</code></a>
 
+Inverse of:  
+<a href="https://vocab.methodandstructure.com/graph-tool#focus-of"
+rel="owl:inverseOf"><code>cgto:focus-of</code></a>
+
 Sub-property of:  
-<a href="http://rdfs.org/sioc/spec/#term_Space" rel="rdfs:subPropertyOf"
+<a href="http://rdfs.org/sioc/spec/#term_space_of"
+rel="rdfs:subPropertyOf"
 resource="http://rdfs.org/sioc/ns#space_of"><code>sioc:space_of</code></a>
+
+<a href="https://vocab.methodandstructure.com/graph-tool#"
+rel="rdfs:isDefinedBy">Back to Top</a>
+
+</div>
+
+<div id="focus-of" class="section" about="cgto:focus-of"
+typeof="owl:ObjectProperty owl:InverseFunctionalProperty">
+
+### `focus-of`
+
+The entity that takes primary focus in the space is what will be shown,
+e.g. on the front page of a Web app.
+
+Range:  
+<a href="https://vocab.methodandstructure.com/graph-tool#Space"
+rel="rdfs:range"><code>cgto:Space</code></a>
+
+Inverse of:  
+<a href="https://vocab.methodandstructure.com/graph-tool#focus"
+rel="owl:inverseOf"><code>cgto:focus</code></a>
+
+Sub-property of:  
+<a href="http://rdfs.org/sioc/spec/#term_has_space"
+rel="rdfs:subPropertyOf"
+resource="http://rdfs.org/sioc/ns#has_space"><code>sioc:space_of</code></a>
 
 <a href="https://vocab.methodandstructure.com/graph-tool#"
 rel="rdfs:isDefinedBy">Back to Top</a>
@@ -375,7 +413,7 @@ different component properties.
 <div id="resources-by-class" class="section"
 about="cgto:resources-by-class" typeof="qb:DataStructureDefinition">
 
-#### Resources by Class
+#### `resources-by-class`
 
 This structure describes a data set that tabulates subject resources of
 a certain `rdf:type`.
@@ -385,17 +423,26 @@ Components:
 rel="qb:dimension"><code>cgto:class</code></a>
 
 <a href="https://vocab.methodandstructure.com/graph-tool#subjects"
-rel="qb:attribute"><code>cgto:subjects</code></a>
+rel="qb:attribute"><code>cgto:asserted-subjects</code></a>
 
-<a href="https://vocab.methodandstructure.com/graph-tool#subject-count"
-rel="qb:measure"><code>cgto:subject-count</code></a>
+<a
+href="https://vocab.methodandstructure.com/graph-tool#asserted-subject-count"
+rel="qb:measure"><code>cgto:asserted-subject-count</code></a>
+
+<a
+href="https://vocab.methodandstructure.com/graph-tool#inferred-subjects"
+rel="qb:attribute"><code>cgto:inferred-subjects</code></a>
+
+<a
+href="https://vocab.methodandstructure.com/graph-tool#inferred-subject-count"
+rel="qb:measure"><code>cgto:inferred-subject-count</code></a>
 
 </div>
 
 <div id="resources-by-property" class="section"
 about="cgto:resources-by-property" typeof="qb:DataStructureDefinition">
 
-#### Resources by Property
+#### `resources-by-property`
 
 This structure describes a data set that tabulates both subject and
 object resources by property (predicate).
@@ -404,17 +451,35 @@ Components:
 <a href="https://vocab.methodandstructure.com/graph-tool#property"
 rel="qb:dimension"><code>cgto:property</code></a>
 
-<a href="https://vocab.methodandstructure.com/graph-tool#subjects"
-rel="qb:attribute"><code>cgto:subjects</code></a>
+<a
+href="https://vocab.methodandstructure.com/graph-tool#asserted-domain"
+rel="qb:attribute"><code>cgto:asserted-domain</code></a>
 
-<a href="https://vocab.methodandstructure.com/graph-tool#subject-count"
-rel="qb:measure"><code>cgto:subject-count</code></a>
+<a
+href="https://vocab.methodandstructure.com/graph-tool#asserted-domain-count"
+rel="qb:measure"><code>cgto:asserted-domain-count</code></a>
 
-<a href="https://vocab.methodandstructure.com/graph-tool#objects"
-rel="qb:attribute"><code>cgto:objects</code></a>
+<a href="https://vocab.methodandstructure.com/graph-tool#asserted-range"
+rel="qb:attribute"><code>cgto:asserted-range</code></a>
 
-<a href="https://vocab.methodandstructure.com/graph-tool#object-count"
-rel="qb:measure"><code>cgto:object-count</code></a>
+<a
+href="https://vocab.methodandstructure.com/graph-tool#asserted-range-count"
+rel="qb:measure"><code>cgto:asserted-range-count</code></a>
+
+<a
+href="https://vocab.methodandstructure.com/graph-tool#inferred-domain"
+rel="qb:attribute"><code>cgto:inferred-domain</code></a>
+
+<a
+href="https://vocab.methodandstructure.com/graph-tool#inferred-domain-count"
+rel="qb:measure"><code>cgto:inferred-domain-count</code></a>
+
+<a href="https://vocab.methodandstructure.com/graph-tool#inferred-range"
+rel="qb:attribute"><code>cgto:inferred-range</code></a>
+
+<a
+href="https://vocab.methodandstructure.com/graph-tool#inferred-range-count"
+rel="qb:measure"><code>cgto:inferred-range-count</code></a>
 
 </div>
 
@@ -479,12 +544,11 @@ rel="rdfs:isDefinedBy">Back to Top</a>
 Measure properties record the experimental data, which in this case
 amounts to counts of resources.
 
-<div id="subject-count" class="section" about="cgto:subject-count"
+<div id="asserted-domain-count" class="section"
+about="cgto:asserted-domain-count"
 typeof="qb:MeasureProperty owl:DatatypeProperty">
 
-#### `subject-count`
-
-Specifies the number of subject resources in the selection criterion.
+#### `asserted-domain-count`
 
 Domain:  
 <a href="https://www.w3.org/TR/vocab-data-cube/#ref_qb_Observation"
@@ -501,12 +565,101 @@ rel="rdfs:isDefinedBy">Back to Top</a>
 
 </div>
 
-<div id="object-count" class="section" about="cgto:object-count"
+<div id="asserted-range-count" class="section"
+about="cgto:asserted-range-count"
 typeof="qb:MeasureProperty owl:DatatypeProperty">
 
-#### `object-count`
+#### `asserted-range-count`
 
-Specifies the number of object resources in the selection criterion.
+Domain:  
+<a href="https://www.w3.org/TR/vocab-data-cube/#ref_qb_Observation"
+rel="rdfs:domain"
+resource="qb:Observation"><code>qb:Observation</code></a>
+
+Range:  
+<a href="https://www.w3.org/TR/xmlschema-2/#nonNegativeInteger"
+rel="rdfs:range"
+resource="xsd:nonNegativeInteger"><code>xsd:nonNegativeInteger</code></a>
+
+<a href="https://vocab.methodandstructure.com/graph-tool#"
+rel="rdfs:isDefinedBy">Back to Top</a>
+
+</div>
+
+<div id="asserted-subject-count" class="section"
+about="cgto:asserted-subject-count"
+typeof="qb:MeasureProperty owl:DatatypeProperty">
+
+#### `asserted-subject-count`
+
+Specifies the number of subject resources *asserted* to relate according
+to the given criterion.
+
+Domain:  
+<a href="https://www.w3.org/TR/vocab-data-cube/#ref_qb_Observation"
+rel="rdfs:domain"
+resource="qb:Observation"><code>qb:Observation</code></a>
+
+Range:  
+<a href="https://www.w3.org/TR/xmlschema-2/#nonNegativeInteger"
+rel="rdfs:range"
+resource="xsd:nonNegativeInteger"><code>xsd:nonNegativeInteger</code></a>
+
+<a href="https://vocab.methodandstructure.com/graph-tool#"
+rel="rdfs:isDefinedBy">Back to Top</a>
+
+</div>
+
+<div id="inferred-domain-count" class="section"
+about="cgto:inferred-domain-count"
+typeof="qb:MeasureProperty owl:DatatypeProperty">
+
+#### `inferred-domain-count`
+
+Domain:  
+<a href="https://www.w3.org/TR/vocab-data-cube/#ref_qb_Observation"
+rel="rdfs:domain"
+resource="qb:Observation"><code>qb:Observation</code></a>
+
+Range:  
+<a href="https://www.w3.org/TR/xmlschema-2/#nonNegativeInteger"
+rel="rdfs:range"
+resource="xsd:nonNegativeInteger"><code>xsd:nonNegativeInteger</code></a>
+
+<a href="https://vocab.methodandstructure.com/graph-tool#"
+rel="rdfs:isDefinedBy">Back to Top</a>
+
+</div>
+
+<div id="inferred-range-count" class="section"
+about="cgto:inferred-range-count"
+typeof="qb:MeasureProperty owl:DatatypeProperty">
+
+#### `inferred-range-count`
+
+Domain:  
+<a href="https://www.w3.org/TR/vocab-data-cube/#ref_qb_Observation"
+rel="rdfs:domain"
+resource="qb:Observation"><code>qb:Observation</code></a>
+
+Range:  
+<a href="https://www.w3.org/TR/xmlschema-2/#nonNegativeInteger"
+rel="rdfs:range"
+resource="xsd:nonNegativeInteger"><code>xsd:nonNegativeInteger</code></a>
+
+<a href="https://vocab.methodandstructure.com/graph-tool#"
+rel="rdfs:isDefinedBy">Back to Top</a>
+
+</div>
+
+<div id="inferred-subject-count" class="section"
+about="cgto:inferred-subject-count"
+typeof="qb:MeasureProperty owl:DatatypeProperty">
+
+#### `inferred-subject-count`
+
+Specifies the number of subject resources *inferred* to relate according
+to the given criterion.
 
 Domain:  
 <a href="https://www.w3.org/TR/vocab-data-cube/#ref_qb_Observation"
@@ -532,10 +685,10 @@ rel="rdfs:isDefinedBy">Back to Top</a>
 Attribute properties are used to qualify the data. In this case they are
 being appropriated to link to the actual inventories of resources.
 
-<div id="subjects" class="section" about="cgto:subjects"
+<div id="asserted-domain" class="section" about="cgto:asserted-domain"
 typeof="qb:AttributeProperty owl:ObjectProperty">
 
-#### `subjects`
+#### `asserted-domain`
 
 Domain:  
 <a href="https://www.w3.org/TR/vocab-data-cube/#ref_qb_Observation"
@@ -551,10 +704,88 @@ rel="rdfs:isDefinedBy">Back to Top</a>
 
 </div>
 
-<div id="objects" class="section" about="cgto:objects"
+<div id="asserted-range" class="section" about="cgto:asserted-range"
 typeof="qb:AttributeProperty owl:ObjectProperty">
 
-#### `objects`
+#### `asserted-range`
+
+Domain:  
+<a href="https://www.w3.org/TR/vocab-data-cube/#ref_qb_Observation"
+rel="rdfs:domain"
+resource="qb:Observation"><code>qb:Observation</code></a>
+
+Range:  
+<a href="https://vocab.methodandstructure.com/graph-tool#Inventory"
+rel="rdfs:range"><code>cgto:Inventory</code></a>
+
+<a href="https://vocab.methodandstructure.com/graph-tool#"
+rel="rdfs:isDefinedBy">Back to Top</a>
+
+</div>
+
+<div id="asserted-subjects" class="section"
+about="cgto:assertedsubjects"
+typeof="qb:AttributeProperty owl:ObjectProperty">
+
+#### `asserted-subjects`
+
+Domain:  
+<a href="https://www.w3.org/TR/vocab-data-cube/#ref_qb_Observation"
+rel="rdfs:domain"
+resource="qb:Observation"><code>qb:Observation</code></a>
+
+Range:  
+<a href="https://vocab.methodandstructure.com/graph-tool#Inventory"
+rel="rdfs:range"><code>cgto:Inventory</code></a>
+
+<a href="https://vocab.methodandstructure.com/graph-tool#"
+rel="rdfs:isDefinedBy">Back to Top</a>
+
+</div>
+
+<div id="inferred-domain" class="section" about="cgto:inferred-domain"
+typeof="qb:AttributeProperty owl:ObjectProperty">
+
+#### `inferred-domain`
+
+Domain:  
+<a href="https://www.w3.org/TR/vocab-data-cube/#ref_qb_Observation"
+rel="rdfs:domain"
+resource="qb:Observation"><code>qb:Observation</code></a>
+
+Range:  
+<a href="https://vocab.methodandstructure.com/graph-tool#Inventory"
+rel="rdfs:range"><code>cgto:Inventory</code></a>
+
+<a href="https://vocab.methodandstructure.com/graph-tool#"
+rel="rdfs:isDefinedBy">Back to Top</a>
+
+</div>
+
+<div id="inferred-range" class="section" about="cgto:inferred-range"
+typeof="qb:AttributeProperty owl:ObjectProperty">
+
+#### `inferred-range`
+
+Domain:  
+<a href="https://www.w3.org/TR/vocab-data-cube/#ref_qb_Observation"
+rel="rdfs:domain"
+resource="qb:Observation"><code>qb:Observation</code></a>
+
+Range:  
+<a href="https://vocab.methodandstructure.com/graph-tool#Inventory"
+rel="rdfs:range"><code>cgto:Inventory</code></a>
+
+<a href="https://vocab.methodandstructure.com/graph-tool#"
+rel="rdfs:isDefinedBy">Back to Top</a>
+
+</div>
+
+<div id="inferred-subjects" class="section"
+about="cgto:inferred-subjects"
+typeof="qb:AttributeProperty owl:ObjectProperty">
+
+#### `inferred-subjects`
 
 Domain:  
 <a href="https://www.w3.org/TR/vocab-data-cube/#ref_qb_Observation"

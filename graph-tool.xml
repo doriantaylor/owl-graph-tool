@@ -33,18 +33,19 @@
         <dt>Author</dt>
         <dd><a rel="dct:creator" href="https://doriantaylor.com/person/dorian-taylor#me" typeof="foaf:Person"><span property="foaf:name">Dorian Taylor</span></a></dd>
         <dt>Version</dt>
-        <dd property="owl:versionInfo" datatype="xsd:string">0.1</dd>
+        <dd property="owl:versionInfo" datatype="xsd:string">0.2</dd>
         <dt>Created</dt>
         <dd property="dct:created" datatype="xsd:dateTime" content="2022-12-04T20:12:02Z">December 4, 2022</dd>
         <dt>Updated</dt>
         <dd property="dct:modified" datatype="xsd:dateTime" content="2023-01-22T02:09:02Z">January 21, 2023</dd>
         <dd property="dct:modified" datatype="xsd:dateTime" content="2023-12-12T21:48:55Z">December 12, 2023</dd>
+        <dd property="dct:modified" datatype="xsd:dateTime" content="2024-10-06T19:16:59Z">October 6, 2024</dd>
         <dt>Namespace URI</dt>
         <dd><a about="#" rel="sh:namespace vann:preferredNamespaceUri" href="#"><code>https://vocab.methodandstructure.com/graph-tool#</code></a></dd>
         <dt>Preferred Namespace Prefix</dt>
         <dd><code about="#" property="sh:prefix vann:preferredNamespacePrefix" datatype="xsd:token">cgto</code></dd>
       </dl>
-      <p>Ontologies like <a href="ibis#">the <abbr>IBIS</abbr> vocabulary</a> are intended to only convey their essential semantic content. There are nevertheless additional constructs, that do not belong in the core vocabulary, that need to be expressed in order to fully operationalize the information it describes as a piece of user-facing software. Such constructs include the users of the environment, and the graphical representation of the network itself, from colour palette to the relative (or absolute) geometry of the individual nodes.</p>
+      <p property="rdfs:comment">Ontologies like <a href="ibis#">the <abbr>IBIS</abbr> vocabulary</a> are intended to only convey their essential semantic content. There are nevertheless additional constructs, that do not belong in the core vocabulary, that need to be expressed in order to fully operationalize the information it describes as a piece of user-facing software. Such constructs include the users of the environment, and the graphical representation of the network itself, from colour palette to the relative (or absolute) geometry of the individual nodes.</p>
       <p>so what ingredients do we know we need?</p>
       <ul>
         <li>basic <abbr>ACL</abbr> for users (e.g. view-only, comment, write; users themselves can be <abbr>SIOC</abbr> that connects to <abbr>FOAF</abbr>)</li>
@@ -140,8 +141,23 @@
         <dl>
           <dt>Domain:</dt>
           <dd><a rel="rdfs:domain" href="#Space"><code>cgto:Space</code></a></dd>
+          <dt>Inverse of:</dt>
+          <dd><a rel="owl:inverseOf" href="#focus-of"><code>cgto:focus-of</code></a></dd>
           <dt>Sub-property of:</dt>
-          <dd><a rel="rdfs:subPropertyOf" resource="http://rdfs.org/sioc/ns#space_of" href="http://rdfs.org/sioc/spec/#term_Space"><code>sioc:space_of</code></a></dd>
+          <dd><a rel="rdfs:subPropertyOf" resource="http://rdfs.org/sioc/ns#space_of" href="http://rdfs.org/sioc/spec/#term_space_of"><code>sioc:space_of</code></a></dd>
+        </dl>
+        <p><a rel="rdfs:isDefinedBy" href="#">Back to Top</a></p>
+      </section>
+      <section id="focus-of" about="cgto:focus-of" typeof="owl:ObjectProperty owl:InverseFunctionalProperty">
+        <h3><code property="rdfs:label" datatype="xsd:token">focus-of</code></h3>
+        <p property="rdfs:comment">The entity that takes primary focus in the space is what will be shown, e.g. on the front page of a Web app.</p>
+        <dl>
+          <dt>Range:</dt>
+          <dd><a rel="rdfs:range" href="#Space"><code>cgto:Space</code></a></dd>
+          <dt>Inverse of:</dt>
+          <dd><a rel="owl:inverseOf" href="#focus"><code>cgto:focus</code></a></dd>
+          <dt>Sub-property of:</dt>
+          <dd><a rel="rdfs:subPropertyOf" resource="http://rdfs.org/sioc/ns#has_space" href="http://rdfs.org/sioc/spec/#term_has_space"><code>sioc:space_of</code></a></dd>
         </dl>
         <p><a rel="rdfs:isDefinedBy" href="#">Back to Top</a></p>
       </section>
@@ -236,25 +252,31 @@
         <h3>Data Structure Definitions</h3>
         <p>Data sets are described by data structure definitions which specify different component properties.</p>
         <section id="resources-by-class" about="cgto:resources-by-class" typeof="qb:DataStructureDefinition">
-          <h4 property="rdfs:label">Resources by Class</h4>
+          <h4><code property="rdfs:label" datatype="xsd:token">resources-by-class</code></h4>
           <p property="rdfs:comment">This structure describes a data set that tabulates subject resources of a certain <code>rdf:type</code>.</p>
           <dl rel="qb:component">
             <dt>Components:</dt>
             <dd typeof="qb:ComponentSpecification"><a rel="qb:dimension" href="#class"><code>cgto:class</code></a></dd>
-            <dd typeof="qb:ComponentSpecification"><a rel="qb:attribute" href="#subjects"><code>cgto:subjects</code></a></dd>
-            <dd typeof="qb:ComponentSpecification"><a rel="qb:measure" href="#subject-count"><code>cgto:subject-count</code></a></dd>
+            <dd typeof="qb:ComponentSpecification"><a rel="qb:attribute" href="#subjects"><code>cgto:asserted-subjects</code></a></dd>
+            <dd typeof="qb:ComponentSpecification"><a rel="qb:measure" href="#asserted-subject-count"><code>cgto:asserted-subject-count</code></a></dd>
+            <dd typeof="qb:ComponentSpecification"><a rel="qb:attribute" href="#inferred-subjects"><code>cgto:inferred-subjects</code></a></dd>
+            <dd typeof="qb:ComponentSpecification"><a rel="qb:measure" href="#inferred-subject-count"><code>cgto:inferred-subject-count</code></a></dd>
           </dl>
         </section>
         <section id="resources-by-property" about="cgto:resources-by-property" typeof="qb:DataStructureDefinition">
-          <h4 property="rdfs:label">Resources by Property</h4>
+          <h4><code property="rdfs:label" datatype="xsd:token">resources-by-property</code></h4>
           <p property="rdfs:comment">This structure describes a data set that tabulates both subject and object resources by property (predicate).</p>
           <dl rel="qb:component">
             <dt>Components:</dt>
             <dd typeof="qb:ComponentSpecification"><a rel="qb:dimension" href="#property"><code>cgto:property</code></a></dd>
-            <dd typeof="qb:ComponentSpecification"><a rel="qb:attribute" href="#subjects"><code>cgto:subjects</code></a></dd>
-            <dd typeof="qb:ComponentSpecification"><a rel="qb:measure" href="#subject-count"><code>cgto:subject-count</code></a></dd>
-            <dd typeof="qb:ComponentSpecification"><a rel="qb:attribute" href="#objects"><code>cgto:objects</code></a></dd>
-            <dd typeof="qb:ComponentSpecification"><a rel="qb:measure" href="#object-count"><code>cgto:object-count</code></a></dd>
+            <dd typeof="qb:ComponentSpecification"><a rel="qb:attribute" href="#asserted-domain"><code>cgto:asserted-domain</code></a></dd>
+            <dd typeof="qb:ComponentSpecification"><a rel="qb:measure" href="#asserted-domain-count"><code>cgto:asserted-domain-count</code></a></dd>
+            <dd typeof="qb:ComponentSpecification"><a rel="qb:attribute" href="#asserted-range"><code>cgto:asserted-range</code></a></dd>
+            <dd typeof="qb:ComponentSpecification"><a rel="qb:measure" href="#asserted-range-count"><code>cgto:asserted-range-count</code></a></dd>
+            <dd typeof="qb:ComponentSpecification"><a rel="qb:attribute" href="#inferred-domain"><code>cgto:inferred-domain</code></a></dd>
+            <dd typeof="qb:ComponentSpecification"><a rel="qb:measure" href="#inferred-domain-count"><code>cgto:inferred-domain-count</code></a></dd>
+            <dd typeof="qb:ComponentSpecification"><a rel="qb:attribute" href="#inferred-range"><code>cgto:inferred-range</code></a></dd>
+            <dd typeof="qb:ComponentSpecification"><a rel="qb:measure" href="#inferred-range-count"><code>cgto:inferred-range-count</code></a></dd>
           </dl>
         </section>
       </section>
@@ -287,9 +309,9 @@
       <section>
         <h3>Measure Properties</h3>
         <p>Measure properties record the experimental data, which in this case amounts to counts of resources.</p>
-        <section id="subject-count" about="cgto:subject-count" typeof="qb:MeasureProperty owl:DatatypeProperty">
-          <h4><code property="rdfs:label" datatype="xsd:token">subject-count</code></h4>
-          <p property="rdfs:comment">Specifies the number of subject resources in the selection criterion.</p>
+        <section id="asserted-domain-count" about="cgto:asserted-domain-count" typeof="qb:MeasureProperty owl:DatatypeProperty">
+          <h4><code property="rdfs:label" datatype="xsd:token">asserted-domain-count</code></h4>
+          <p property="rdfs:comment"></p>
           <dl>
             <dt>Domain:</dt>
             <dd><a rel="rdfs:domain" resource="qb:Observation" href="https://www.w3.org/TR/vocab-data-cube/#ref_qb_Observation"><code>qb:Observation</code></a></dd>
@@ -298,9 +320,53 @@
           </dl>
           <p><a rel="rdfs:isDefinedBy" href="#">Back to Top</a></p>
         </section>
-        <section id="object-count" about="cgto:object-count" typeof="qb:MeasureProperty owl:DatatypeProperty">
-          <h4><code property="rdfs:label" datatype="xsd:token">object-count</code></h4>
-          <p property="rdfs:comment">Specifies the number of object resources in the selection criterion.</p>
+        <section id="asserted-range-count" about="cgto:asserted-range-count" typeof="qb:MeasureProperty owl:DatatypeProperty">
+          <h4><code property="rdfs:label" datatype="xsd:token">asserted-range-count</code></h4>
+          <p property="rdfs:comment"></p>
+          <dl>
+            <dt>Domain:</dt>
+            <dd><a rel="rdfs:domain" resource="qb:Observation" href="https://www.w3.org/TR/vocab-data-cube/#ref_qb_Observation"><code>qb:Observation</code></a></dd>
+            <dt>Range:</dt>
+            <dd><a rel="rdfs:range" resource="xsd:nonNegativeInteger" href="https://www.w3.org/TR/xmlschema-2/#nonNegativeInteger"><code>xsd:nonNegativeInteger</code></a></dd>
+          </dl>
+          <p><a rel="rdfs:isDefinedBy" href="#">Back to Top</a></p>
+        </section>
+        <section id="asserted-subject-count" about="cgto:asserted-subject-count" typeof="qb:MeasureProperty owl:DatatypeProperty">
+          <h4><code property="rdfs:label" datatype="xsd:token">asserted-subject-count</code></h4>
+          <p property="rdfs:comment">Specifies the number of subject resources <em>asserted</em> to relate according to the given criterion.</p>
+          <dl>
+            <dt>Domain:</dt>
+            <dd><a rel="rdfs:domain" resource="qb:Observation" href="https://www.w3.org/TR/vocab-data-cube/#ref_qb_Observation"><code>qb:Observation</code></a></dd>
+            <dt>Range:</dt>
+            <dd><a rel="rdfs:range" resource="xsd:nonNegativeInteger" href="https://www.w3.org/TR/xmlschema-2/#nonNegativeInteger"><code>xsd:nonNegativeInteger</code></a></dd>
+          </dl>
+          <p><a rel="rdfs:isDefinedBy" href="#">Back to Top</a></p>
+        </section>
+        <section id="inferred-domain-count" about="cgto:inferred-domain-count" typeof="qb:MeasureProperty owl:DatatypeProperty">
+          <h4><code property="rdfs:label" datatype="xsd:token">inferred-domain-count</code></h4>
+          <p property="rdfs:comment"></p>
+          <dl>
+            <dt>Domain:</dt>
+            <dd><a rel="rdfs:domain" resource="qb:Observation" href="https://www.w3.org/TR/vocab-data-cube/#ref_qb_Observation"><code>qb:Observation</code></a></dd>
+            <dt>Range:</dt>
+            <dd><a rel="rdfs:range" resource="xsd:nonNegativeInteger" href="https://www.w3.org/TR/xmlschema-2/#nonNegativeInteger"><code>xsd:nonNegativeInteger</code></a></dd>
+          </dl>
+          <p><a rel="rdfs:isDefinedBy" href="#">Back to Top</a></p>
+        </section>
+        <section id="inferred-range-count" about="cgto:inferred-range-count" typeof="qb:MeasureProperty owl:DatatypeProperty">
+          <h4><code property="rdfs:label" datatype="xsd:token">inferred-range-count</code></h4>
+          <p property="rdfs:comment"></p>
+          <dl>
+            <dt>Domain:</dt>
+            <dd><a rel="rdfs:domain" resource="qb:Observation" href="https://www.w3.org/TR/vocab-data-cube/#ref_qb_Observation"><code>qb:Observation</code></a></dd>
+            <dt>Range:</dt>
+            <dd><a rel="rdfs:range" resource="xsd:nonNegativeInteger" href="https://www.w3.org/TR/xmlschema-2/#nonNegativeInteger"><code>xsd:nonNegativeInteger</code></a></dd>
+          </dl>
+          <p><a rel="rdfs:isDefinedBy" href="#">Back to Top</a></p>
+        </section>
+        <section id="inferred-subject-count" about="cgto:inferred-subject-count" typeof="qb:MeasureProperty owl:DatatypeProperty">
+          <h4><code property="rdfs:label" datatype="xsd:token">inferred-subject-count</code></h4>
+          <p property="rdfs:comment">Specifies the number of subject resources <em>inferred</em> to relate according to the given criterion.</p>
           <dl>
             <dt>Domain:</dt>
             <dd><a rel="rdfs:domain" resource="qb:Observation" href="https://www.w3.org/TR/vocab-data-cube/#ref_qb_Observation"><code>qb:Observation</code></a></dd>
@@ -313,8 +379,8 @@
       <section>
         <h3>Attribute Properties</h3>
         <p>Attribute properties are used to qualify the data. In this case they are being appropriated to link to the actual inventories of resources.</p>
-        <section id="subjects" about="cgto:subjects" typeof="qb:AttributeProperty owl:ObjectProperty">
-          <h4><code property="rdfs:label" datatype="xsd:token">subjects</code></h4>
+        <section id="asserted-domain" about="cgto:asserted-domain" typeof="qb:AttributeProperty owl:ObjectProperty">
+          <h4><code property="rdfs:label" datatype="xsd:token">asserted-domain</code></h4>
           <p property="rdfs:comment"></p>
           <dl>
             <dt>Domain:</dt>
@@ -324,8 +390,52 @@
           </dl>
           <p><a rel="rdfs:isDefinedBy" href="#">Back to Top</a></p>
         </section>
-        <section id="objects" about="cgto:objects" typeof="qb:AttributeProperty owl:ObjectProperty">
-          <h4><code property="rdfs:label" datatype="xsd:token">objects</code></h4>
+        <section id="asserted-range" about="cgto:asserted-range" typeof="qb:AttributeProperty owl:ObjectProperty">
+          <h4><code property="rdfs:label" datatype="xsd:token">asserted-range</code></h4>
+          <p property="rdfs:comment"></p>
+          <dl>
+            <dt>Domain:</dt>
+            <dd><a rel="rdfs:domain" resource="qb:Observation" href="https://www.w3.org/TR/vocab-data-cube/#ref_qb_Observation"><code>qb:Observation</code></a></dd>
+            <dt>Range:</dt>
+            <dd><a rel="rdfs:range" href="#Inventory"><code>cgto:Inventory</code></a></dd>
+          </dl>
+          <p><a rel="rdfs:isDefinedBy" href="#">Back to Top</a></p>
+        </section>
+        <section id="asserted-subjects" about="cgto:assertedsubjects" typeof="qb:AttributeProperty owl:ObjectProperty">
+          <h4><code property="rdfs:label" datatype="xsd:token">asserted-subjects</code></h4>
+          <p property="rdfs:comment"></p>
+          <dl>
+            <dt>Domain:</dt>
+            <dd><a rel="rdfs:domain" resource="qb:Observation" href="https://www.w3.org/TR/vocab-data-cube/#ref_qb_Observation"><code>qb:Observation</code></a></dd>
+            <dt>Range:</dt>
+            <dd><a rel="rdfs:range" href="#Inventory"><code>cgto:Inventory</code></a></dd>
+          </dl>
+          <p><a rel="rdfs:isDefinedBy" href="#">Back to Top</a></p>
+        </section>
+        <section id="inferred-domain" about="cgto:inferred-domain" typeof="qb:AttributeProperty owl:ObjectProperty">
+          <h4><code property="rdfs:label" datatype="xsd:token">inferred-domain</code></h4>
+          <p property="rdfs:comment"></p>
+          <dl>
+            <dt>Domain:</dt>
+            <dd><a rel="rdfs:domain" resource="qb:Observation" href="https://www.w3.org/TR/vocab-data-cube/#ref_qb_Observation"><code>qb:Observation</code></a></dd>
+            <dt>Range:</dt>
+            <dd><a rel="rdfs:range" href="#Inventory"><code>cgto:Inventory</code></a></dd>
+          </dl>
+          <p><a rel="rdfs:isDefinedBy" href="#">Back to Top</a></p>
+        </section>
+        <section id="inferred-range" about="cgto:inferred-range" typeof="qb:AttributeProperty owl:ObjectProperty">
+          <h4><code property="rdfs:label" datatype="xsd:token">inferred-range</code></h4>
+          <p property="rdfs:comment"></p>
+          <dl>
+            <dt>Domain:</dt>
+            <dd><a rel="rdfs:domain" resource="qb:Observation" href="https://www.w3.org/TR/vocab-data-cube/#ref_qb_Observation"><code>qb:Observation</code></a></dd>
+            <dt>Range:</dt>
+            <dd><a rel="rdfs:range" href="#Inventory"><code>cgto:Inventory</code></a></dd>
+          </dl>
+          <p><a rel="rdfs:isDefinedBy" href="#">Back to Top</a></p>
+        </section>
+        <section id="inferred-subjects" about="cgto:inferred-subjects" typeof="qb:AttributeProperty owl:ObjectProperty">
+          <h4><code property="rdfs:label" datatype="xsd:token">inferred-subjects</code></h4>
           <p property="rdfs:comment"></p>
           <dl>
             <dt>Domain:</dt>
