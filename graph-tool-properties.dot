@@ -7,74 +7,94 @@ digraph {
 
     subgraph {
         node [shape=box, style=dashed];
-        rdfs_Resource [label="rdfs:Resource", href="https://www.w3.org/TR/rdf-schema/#ch_resource"];
+        foaf_OnlineAccount [label="foaf:OnlineAccount", href="http://xmlns.com/foaf/spec/#term_OnlineAccount"];
         qb_Observation [label="qb:Observation", href="https://www.w3.org/TR/vocab-data-cube/#reference-observations"];
+        rdfs_Resource [label="rdfs:Resource", href="https://www.w3.org/TR/rdf-schema/#ch_resource"];
+
     }
 
     // our classes
 
     subgraph {
         node [shape=box, style=""];
-        cgto_Space [label="cgto:Space", href="https://vocab.methodandstructure.com/graph-tool#Space"];
-        cgto_View [label="cgto:View", href="https://vocab.methodandstructure.com/graph-tool#View"];
         // cgto_Error [label="cgto:Error", href="https://vocab.methodandstructure.com/graph-tool#Error"];
         cgto_Index [label="cgto:Index", href="https://vocab.methodandstructure.com/graph-tool#Index"];
-        cgto_Summary [label="cgto:Summary", href="https://vocab.methodandstructure.com/graph-tool#Summary"];
         cgto_Inventory [label="cgto:Inventory", href="https://vocab.methodandstructure.com/graph-tool#Inventory"];
+        cgto_Space [label="cgto:Space", href="https://vocab.methodandstructure.com/graph-tool#Space"];
+        cgto_State [label="cgto:State", href="https://vocab.methodandstructure.com/graph-tool#State"];
+        cgto_Summary [label="cgto:Summary", href="https://vocab.methodandstructure.com/graph-tool#Summary"];
+        cgto_View [label="cgto:View", href="https://vocab.methodandstructure.com/graph-tool#View"];
+        cgto_Window [label="cgto:Window", href="https://vocab.methodandstructure.com/graph-tool#Window"];
     }
 
     // third-party properties
 
     subgraph {
         node [style="dashed,rounded"];
-        sioc_space_of [label="sioc:space_of", href="http://rdfs.org/spec/#term_space_of"];
-        sioc_parent_of [label="sioc:parent_of", href="http://rdfs.org/spec/#term_parent_of"];
         qb_dataSet [label="qb:dataSet", href="https://www.w3.org/TR/vocab-data-cube/#reference-observations"];
+        sioc_parent_of [label="sioc:parent_of", href="http://rdfs.org/spec/#term_parent_of"];
+        sioc_space_of [label="sioc:space_of", href="http://rdfs.org/spec/#term_space_of"];
     }
 
     // our properties
 
+    cgto_by_class [label="cgto:by-class", href="https://vocab.methodandstructure.com/graph-tool#by-class"];
+    cgto_by_property [label="cgto:by-property", href="https://vocab.methodandstructure.com/graph-tool#by-property"];
+    cgto_first_window [label="cgto:first-window", href="https://vocab.methodandstructure.com/graph-tool#first-window"];
     cgto_focus [label="cgto:focus", href="https://vocab.methodandstructure.com/graph-tool#focus"];
     cgto_index [label="cgto:index", href="https://vocab.methodandstructure.com/graph-tool#index"];
+    cgto_objects [label="cgto:objects", href="https://vocab.methodandstructure.com/graph-tool#objects"];
+    cgto_owner [label="cgto:owner", href="https://vocab.methodandstructure.com/graph-tool#owner "];
+    cgto_state  [label="cgto:state", href="https://vocab.methodandstructure.com/graph-tool#state"];
+    cgto_subjects [label="cgto:subjects", href="https://vocab.methodandstructure.com/graph-tool#subjects"];
+    cgto_summary [label="cgto:summary", href="https://vocab.methodandstructure.com/graph-tool#summary"];
+    cgto_user  [label="cgto:user",  href="https://vocab.methodandstructure.com/graph-tool#user"];
     cgto_view  [label="cgto:view",  href="https://vocab.methodandstructure.com/graph-tool#view"];
-    cgto_summary [label="cgto:summary",  href="https://vocab.methodandstructure.com/graph-tool#summary"];
-    cgto_by_class [label="cgto:by-class",  href="https://vocab.methodandstructure.com/graph-tool#by-class"];
-    cgto_by_property [label="cgto:by-property",  href="https://vocab.methodandstructure.com/graph-tool#by-property"];
-    cgto_subjects [label="cgto:subjects",  href="https://vocab.methodandstructure.com/graph-tool#subjects"];
-    cgto_objects [label="cgto:objects",  href="https://vocab.methodandstructure.com/graph-tool#objects"];
+    cgto_window [label="cgto:window", href="https://vocab.methodandstructure.com/graph-tool#window"];
+    cgto_window_of [label="cgto:window-of", href="https://vocab.methodandstructure.com/graph-tool#window-of"];
 
     // relations
 
     subgraph {
         edge [style=dashed, label="rdfs:subPropertyOf"];
-        cgto_focus -> sioc_space_of;
-        cgto_by_class -> cgto_summary -> sioc_parent_of;
-        cgto_by_property -> cgto_summary;
+        cgto_by_class     -> cgto_summary -> sioc_parent_of;
+        cgto_by_property  -> cgto_summary;
+	cgto_first_window -> cgto_window;
+        // cgto_focus        -> sioc_space_of;
     }
 
     subgraph {
         edge [style=dashed, dir=back, label="rdfs:domain"];
-        cgto_Space -> cgto_focus;
-        cgto_Space -> cgto_view;
-        cgto_Space -> cgto_index;
-        cgto_Index -> cgto_summary;
-        cgto_Index -> cgto_by_class;
-        cgto_Index -> cgto_by_property;
-        qb_Observation -> qb_dataSet;
-        qb_Observation -> cgto_subjects;
+        cgto_Index     -> cgto_by_class;
+        cgto_Index     -> cgto_by_property;
+        cgto_Index     -> cgto_state;
+        cgto_Index     -> cgto_summary;
+        cgto_Index     -> cgto_user;
+	cgto_Inventory -> cgto_window;
+        cgto_Space     -> cgto_index;
+        cgto_Space     -> cgto_view;
+        cgto_State     -> cgto_focus;
+	cgto_State     -> cgto_owner;
+	cgto_Window    -> cgto_window_of;
         qb_Observation -> cgto_objects;
+        qb_Observation -> cgto_subjects;
+        qb_Observation -> qb_dataSet;
     }
 
     subgraph {
         edge [style=dashed, label="rdfs:range"];
-        cgto_focus -> rdfs_Resource;
-        cgto_view -> cgto_View;
-        cgto_index -> cgto_Index;
-        cgto_summary -> cgto_Summary;
-        cgto_by_class -> cgto_Summary;
+        cgto_by_class    -> cgto_Summary;
         cgto_by_property -> cgto_Summary;
-        qb_dataSet -> cgto_Summary;
-        cgto_subjects -> cgto_Inventory;
-        cgto_objects -> cgto_Inventory;
+        cgto_focus       -> rdfs_Resource;
+        cgto_index       -> cgto_Index;
+        cgto_objects     -> cgto_Inventory;
+        cgto_owner       -> foaf_OnlineAccount;
+        cgto_state       -> cgto_State;
+        cgto_subjects    -> cgto_Inventory;
+        cgto_summary     -> cgto_Summary;
+	cgto_user        -> foaf_OnlineAccount;
+        cgto_view        -> cgto_View;
+        cgto_window      -> cgto_Window;
+        qb_dataSet       -> cgto_Summary;
     }
 }

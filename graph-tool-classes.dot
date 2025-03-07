@@ -6,39 +6,50 @@ digraph classes {
     subgraph {
         node [style=dashed];
 
-        rdfs_Resource [label="rdfs:Resource", href="https://www.w3.org/TR/rdf-schema/#ch_resource"];
         // owl_Thing [label="owl:Thing",href="https://www.w3.org/TR/2012/REC-owl2-syntax-20121211/#a_Thing"];
-
-        sioc_Space [label="sioc:Space", href="http://rdfs.org/spec/#term_Space"];
-        sioc_Container [label="sioc:Container", href="http://rdfs.org/spec/#term_Container"];
+        foaf_OnlineAccount [label="foaf:OnlineAccount", href="http://xmlns.com/foaf/spec/#term_OnlineAccount"];
         qb_DataSet [label="qb:DataSet", href="https://www.w3.org/TR/vocab-data-cube/#reference-datasets"];
         qb_Observation [label="qb:Observation", href="https://www.w3.org/TR/vocab-data-cube/#reference-observations"];
+        rdfs_Container [label="rdfs:Container", href="https://www.w3.org/TR/rdf-schema/#ch_container"];
+        rdfs_Resource  [label="rdfs:Resource", href="https://www.w3.org/TR/rdf-schema/#ch_resource"];
+        sioc_Container [label="sioc:Container", href="http://rdfs.org/spec/#term_Container"];
+        sioc_Space [label="sioc:Space", href="http://rdfs.org/spec/#term_Space"];
     }
 
-    cgto_Space [label="cgto:Space", href="https://vocab.methodandstructure.com/graph-tool#Space"];
-    cgto_View [label="cgto:View", href="https://vocab.methodandstructure.com/graph-tool#View"];
-    cgto_Error [label="cgto:Error", href="https://vocab.methodandstructure.com/graph-tool#Error"];
-    cgto_Index [label="cgto:Index", href="https://vocab.methodandstructure.com/graph-tool#Index"];
-    cgto_Summary [label="cgto:Summary", href="https://vocab.methodandstructure.com/graph-tool#Summary"];
+    cgto_Error     [label="cgto:Error", href="https://vocab.methodandstructure.com/graph-tool#Error"];
+    cgto_Index     [label="cgto:Index", href="https://vocab.methodandstructure.com/graph-tool#Index"];
     cgto_Inventory [label="cgto:Inventory", href="https://vocab.methodandstructure.com/graph-tool#Inventory"];
-
-    cgto_Space -> rdfs_Resource [label="cgto:focus"];
-    cgto_Space -> cgto_Index [label="cgto:index"];
-    cgto_Space -> cgto_View [label="cgto:view"];
-    cgto_Index -> cgto_Summary [label="cgto:summary,\ncgto:by-subject,\ncgto:by-object"];
-    qb_Observation -> cgto_Inventory [label="cgto:subjects,\ncgto:objects"];
+    cgto_Space     [label="cgto:Space", href="https://vocab.methodandstructure.com/graph-tool#Space"];
+    cgto_State     [label="cgto:State", href="https://vocab.methodandstructure.com/graph-tool#State"];
+    cgto_Summary   [label="cgto:Summary", href="https://vocab.methodandstructure.com/graph-tool#Summary"];
+    cgto_View      [label="cgto:View", href="https://vocab.methodandstructure.com/graph-tool#View"];
+    cgto_Window    [label="cgto:Window", href="https://vocab.methodandstructure.com/graph-tool#Window"];
 
     subgraph {
         edge [style=dashed, label="rdfs:subClassOf"];
-        cgto_Space -> sioc_Space;
-        cgto_Error -> cgto_View;
-        cgto_Index -> sioc_Container;
+        cgto_Error     -> cgto_View;
+        cgto_Index     -> rdfs_Container;
+        cgto_Index     -> sioc_Container;
+        cgto_Inventory -> rdfs_Container;
         cgto_Inventory -> sioc_Container;
-        cgto_Summary -> qb_DataSet;
+        cgto_Space     -> sioc_Space;
+        cgto_Summary   -> qb_DataSet;
     }
 
     subgraph {
         edge [style=dashed];
         qb_Observation -> cgto_Summary [label="qb:dataSet"];
+	cgto_Space -> cgto_State [label="sioc:space_of"];
+	cgto_Space -> cgto_View [label="sioc:space_of"];
     }
+
+    cgto_Index -> cgto_State [label="cgto:state"];
+    cgto_Index -> cgto_Summary [label="cgto:summary,\ncgto:by-subject,\ncgto:by-object"];
+    cgto_Index -> foaf_OnlineAccount [label="cgto:user"];
+    cgto_Inventory -> cgto_Window [label="cgto:window,\ncgto:first-window"];
+    cgto_Space -> cgto_Index [label="cgto:index"];
+    cgto_State -> cgto_View [label="cgto:view"];
+    cgto_State -> foaf_OnlineAccount [label="cgto:owner"];
+    cgto_State -> rdfs_Resource [label="cgto:focus"];
+    qb_Observation -> cgto_Inventory [label="cgto:asserted-subjects,\ncgto:asserted-objects,\ncgto:inferred-subjects,\ncgto:inferred-objects"];
 }

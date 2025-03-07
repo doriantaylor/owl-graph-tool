@@ -28,7 +28,7 @@
     <link rel="up top contents index" href="/"/>
   </head>
   <body typeof="bibo:Specification">
-    <section rel="foaf:primaryTopic" resource="#" typeof="owl:Ontology">
+    <div rel="foaf:primaryTopic" resource="#" typeof="owl:Ontology">
       <dl>
         <dt>Author</dt>
         <dd><a rel="dct:creator" href="https://doriantaylor.com/person/dorian-taylor#me" typeof="foaf:Person"><span property="foaf:name">Dorian Taylor</span></a></dd>
@@ -40,6 +40,8 @@
         <dd property="dct:modified" datatype="xsd:dateTime" content="2023-01-22T02:09:02Z">January 21, 2023</dd>
         <dd property="dct:modified" datatype="xsd:dateTime" content="2023-12-12T21:48:55Z">December 12, 2023</dd>
         <dd property="dct:modified" datatype="xsd:dateTime" content="2024-10-06T19:16:59Z">October 6, 2024</dd>
+        <dd property="dct:modified" datatype="xsd:dateTime" content="2025-02-23T01:28:27Z">February 22, 2025</dd>
+        <dd property="dct:modified" datatype="xsd:dateTime" content="2025-02-28T14:20:07Z">February 28, 2025</dd>
         <dt>Namespace URI</dt>
         <dd><a about="#" rel="sh:namespace vann:preferredNamespaceUri" href="#"><code>https://vocab.methodandstructure.com/graph-tool#</code></a></dd>
         <dt>Preferred Namespace Prefix</dt>
@@ -62,7 +64,7 @@
         <li>consider different view states (eg clustering, edge contraction)</li>
       </ul>
       <p>With respect to the graph itself, the goal of this vocabulary is to provide just the information that only needs to be computed when the graph's content is changed, so the computations can be cached and used as inputs to more than one view.</p>
-    </section>
+    </div>
     <section>
       <h2>Classes</h2>
       <figure>
@@ -104,6 +106,7 @@
         <p property="rdfs:comment">An index relates a <code>cgto:Space</code> to a set of <code>cgto:Inventory</code> resources, via a set of <code>cgto:Summary</code> resources.</p>
         <dl>
           <dt>Subclass of:</dt>
+          <dd><a rel="rdfs:subClassOf" resource="rdfs:Container"  href="https://www.w3.org/TR/rdf11-schema/#ch_container"><code>rdfs:Container</code></a></dd>
           <dd><a rel="rdfs:subClassOf" resource="sioc:Container"  href="http://rdfs.org/sioc/spec/#term_Container"><code>sioc:Container</code></a></dd>
         </dl>
         <p><a rel="rdfs:isDefinedBy" href="#">Back to Top</a></p>
@@ -113,6 +116,7 @@
         <p property="rdfs:comment">An inventory is a de facto grouping of resources according to some criterion.</p>
         <dl>
           <dt>Subclass of:</dt>
+          <dd><a rel="rdfs:subClassOf" resource="rdfs:Container"  href="https://www.w3.org/TR/rdf11-schema/#ch_container"><code>rdfs:Container</code></a></dd>
           <dd><a rel="rdfs:subClassOf" resource="sioc:Container"  href="http://rdfs.org/sioc/spec/#term_Container"><code>sioc:Container</code></a></dd>
         </dl>
         <p><a rel="rdfs:isDefinedBy" href="#">Back to Top</a></p>
@@ -126,6 +130,27 @@
         </dl>
         <p><a rel="rdfs:isDefinedBy" href="#">Back to Top</a></p>
       </section>
+      <section id="Window" about="cgto:Window" typeof="owl:Class">
+        <h3><code property="rdfs:label" datatype="xsd:token">Window</code></h3>
+        <p property="rdfs:comment">A window represents a slice of another container, e.g. for pagination.</p>
+        <dl>
+          <dt>Subclass of:</dt>
+          <dd><a rel="rdfs:subClassOf" resource="rdfs:Container"  href="https://www.w3.org/TR/rdf11-schema/#ch_container"><code>rdfs:Container</code></a></dd>
+          <dd><a rel="rdfs:subClassOf" resource="sioc:Container"  href="http://rdfs.org/sioc/spec/#term_Container"><code>sioc:Container</code></a></dd>
+        </dl>
+        <p><a rel="rdfs:isDefinedBy" href="#">Back to Top</a></p>
+      </section>
+      <section id="State" about="cgto:State" typeof="owl:Class">
+        <h3><code property="rdfs:label" datatype="xsd:token">State</code></h3>
+        <p property="rdfs:comment">A <code>cgto:State</code> relates elements of persistent application state, e.g. from the perspective of the user.</p>
+	<!--
+            <dl>
+            <dt>Subclass of:</dt>
+            <dd><a rel="rdfs:subClassOf" resource="rdfs:Container"  href="https://www.w3.org/TR/rdf11-schema/#ch_container"><code>rdfs:Container</code></a></dd>
+            <dd><a rel="rdfs:subClassOf" resource="sioc:Container"  href="http://rdfs.org/sioc/spec/#term_Container"><code>sioc:Container</code></a></dd>
+            </dl>-->
+        <p><a rel="rdfs:isDefinedBy" href="#">Back to Top</a></p>
+      </section>
     </section>
     <section>
       <h2>Properties</h2>
@@ -135,114 +160,169 @@
           <p>This diagram depicts the ontology from the point of view of its properties.</p>
         </figcaption>
       </figure>
-      <section id="focus" about="cgto:focus" typeof="owl:ObjectProperty owl:FunctionalProperty">
-        <h3><code property="rdfs:label" datatype="xsd:token">focus</code></h3>
-        <p property="rdfs:comment">The entity that takes primary focus in the space is what will be shown, e.g. on the front page of a Web app.</p>
-        <dl>
-          <dt>Domain:</dt>
-          <dd><a rel="rdfs:domain" href="#Space"><code>cgto:Space</code></a></dd>
-          <dt>Inverse of:</dt>
-          <dd><a rel="owl:inverseOf" href="#focus-of"><code>cgto:focus-of</code></a></dd>
-          <dt>Sub-property of:</dt>
-          <dd><a rel="rdfs:subPropertyOf" resource="http://rdfs.org/sioc/ns#space_of" href="http://rdfs.org/sioc/spec/#term_space_of"><code>sioc:space_of</code></a></dd>
-        </dl>
-        <p><a rel="rdfs:isDefinedBy" href="#">Back to Top</a></p>
+      <section id="sec-foci">
+	<h3>Foci</h3>
+	<section id="focus" about="cgto:focus" typeof="owl:ObjectProperty owl:FunctionalProperty">
+          <h4><code property="rdfs:label" datatype="xsd:token">focus</code></h4>
+          <p property="rdfs:comment">The entity that takes primary focus in the space is what will be shown, e.g. on the front page of a Web app.</p>
+          <dl>
+            <dt>Domain:</dt>
+            <dd><a rel="rdfs:domain" href="#Space"><code>cgto:Space</code></a></dd>
+            <dt>Inverse of:</dt>
+            <dd><a rel="owl:inverseOf" href="#focus-of"><code>cgto:focus-of</code></a></dd>
+            <dt>Sub-property of:</dt>
+            <dd><a rel="rdfs:subPropertyOf" resource="http://rdfs.org/sioc/ns#space_of" href="http://rdfs.org/sioc/spec/#term_space_of"><code>sioc:space_of</code></a></dd>
+          </dl>
+          <p><a rel="rdfs:isDefinedBy" href="#">Back to Top</a></p>
+	</section>
+	<section id="focus-of" about="cgto:focus-of" typeof="owl:ObjectProperty owl:InverseFunctionalProperty">
+          <h4><code property="rdfs:label" datatype="xsd:token">focus-of</code></h4>
+          <p property="rdfs:comment">The entity that takes primary focus in the space is what will be shown, e.g. on the front page of a Web app.</p>
+          <dl>
+            <dt>Range:</dt>
+            <dd><a rel="rdfs:range" href="#Space"><code>cgto:Space</code></a></dd>
+            <dt>Inverse of:</dt>
+            <dd><a rel="owl:inverseOf" href="#focus"><code>cgto:focus</code></a></dd>
+            <dt>Sub-property of:</dt>
+            <dd><a rel="rdfs:subPropertyOf" resource="http://rdfs.org/sioc/ns#has_space" href="http://rdfs.org/sioc/spec/#term_has_space"><code>sioc:space_of</code></a></dd>
+          </dl>
+          <p><a rel="rdfs:isDefinedBy" href="#">Back to Top</a></p>
+	</section>
       </section>
-      <section id="focus-of" about="cgto:focus-of" typeof="owl:ObjectProperty owl:InverseFunctionalProperty">
-        <h3><code property="rdfs:label" datatype="xsd:token">focus-of</code></h3>
-        <p property="rdfs:comment">The entity that takes primary focus in the space is what will be shown, e.g. on the front page of a Web app.</p>
-        <dl>
-          <dt>Range:</dt>
-          <dd><a rel="rdfs:range" href="#Space"><code>cgto:Space</code></a></dd>
-          <dt>Inverse of:</dt>
-          <dd><a rel="owl:inverseOf" href="#focus"><code>cgto:focus</code></a></dd>
-          <dt>Sub-property of:</dt>
-          <dd><a rel="rdfs:subPropertyOf" resource="http://rdfs.org/sioc/ns#has_space" href="http://rdfs.org/sioc/spec/#term_has_space"><code>sioc:space_of</code></a></dd>
-        </dl>
-        <p><a rel="rdfs:isDefinedBy" href="#">Back to Top</a></p>
+      <section id="sec-views">
+	<h3>Views</h3>
+	<section id="view" about="cgto:view" typeof="owl:ObjectProperty">
+          <h4><code property="rdfs:label" datatype="xsd:token">view</code></h4>
+          <p property="rdfs:comment">Relates the space to a view of said space.</p>
+          <dl>
+            <dt>Domain:</dt>
+            <dd><a rel="rdfs:domain" href="#Space"><code>cgto:Space</code></a></dd>
+            <dt>Range:</dt>
+            <dd><a rel="rdfs:range" href="#View"><code>cgto:View</code></a></dd>
+            <dt>Sub-property of:</dt>
+            <dd><a rel="rdfs:subPropertyOf" resource="http://rdfs.org/sioc/ns#space_of" href="http://rdfs.org/sioc/spec/#term_space_of"><code>sioc:space_of</code></a></dd>
+            <dt>Inverse of:</dt>
+            <dd><a rel="owl:inverseOf" href="#view-of"><code>cgto:view-of</code></a></dd>
+          </dl>
+          <p><a rel="rdfs:isDefinedBy" href="#">Back to Top</a></p>
+	</section>
+	<section id="view-of" about="cgto:view-of" typeof="owl:ObjectProperty owl:FunctionalProperty">
+          <h4><code property="rdfs:label" datatype="xsd:token">view-of</code></h4>
+          <p property="rdfs:comment">Relates a view back to its <code>cgto:Space</code>.</p>
+          <dl>
+            <dt>Domain:</dt>
+            <dd><a rel="rdfs:domain" href="#View"><code>cgto:View</code></a></dd>
+            <dt>Range:</dt>
+            <dd><a rel="rdfs:range" href="#Space"><code>cgto:Space</code></a></dd>
+            <dt>Sub-property of:</dt>
+            <dd><a rel="rdfs:subPropertyOf" resource="http://rdfs.org/sioc/ns#has_space" href="http://rdfs.org/sioc/spec/#term_has_space"><code>sioc:has_space</code></a></dd>
+            <dt>Inverse of:</dt>
+            <dd><a rel="owl:inverseOf" href="#view"><code>cgto:view</code></a></dd>
+          </dl>
+          <p><a rel="rdfs:isDefinedBy" href="#">Back to Top</a></p>
+	</section>
       </section>
-      <section id="view" about="cgto:view" typeof="owl:ObjectProperty">
-        <h3><code property="rdfs:label" datatype="xsd:token">view</code></h3>
-        <p property="rdfs:comment">Relates the space to a view of said space.</p>
-        <dl>
-          <dt>Domain:</dt>
-          <dd><a rel="rdfs:domain" href="#Space"><code>cgto:Space</code></a></dd>
-          <dt>Range:</dt>
-          <dd><a rel="rdfs:range" href="#View"><code>cgto:View</code></a></dd>
-          <dt>Sub-property of:</dt>
-          <dd><a rel="rdfs:subPropertyOf" resource="http://rdfs.org/sioc/ns#space_of" href="http://rdfs.org/sioc/spec/#term_space_of"><code>sioc:space_of</code></a></dd>
-          <dt>Inverse of:</dt>
-          <dd><a rel="owl:inverseOf" href="#view-of"><code>cgto:view-of</code></a></dd>
-        </dl>
-        <p><a rel="rdfs:isDefinedBy" href="#">Back to Top</a></p>
+      <section id="sec-indices">
+	<h3>Indices</h3>
+	<section id="index" about="cgto:index" typeof="owl:ObjectProperty owl:FunctionalProperty">
+          <h4><code property="rdfs:label" datatype="xsd:token">index</code></h4>
+          <p property="rdfs:comment">Connects the <code>cgto:Space</code> to its <code>cgto:Index</code> of resources.</p>
+          <dl>
+            <dt>Domain:</dt>
+            <dd><a rel="rdfs:domain" href="#Space"><code>cgto:Space</code></a></dd>
+            <dt>Range:</dt>
+            <dd><a rel="rdfs:range" href="#Index"><code>cgto:Index</code></a></dd>
+            <dt>Sub-property of:</dt>
+            <dd><a rel="rdfs:subPropertyOf" resource="sioc:space_of" href="http://rdfs.org/sioc/spec/#term_space_of"><code>sioc:space_of</code></a></dd>
+            <dd><a rel="rdfs:subPropertyOf" resource="xhv:index" href="https://www.w3.org/1999/xhtml/vocab#index"><code>xhv:index</code></a></dd>
+          </dl>
+          <p><a rel="rdfs:isDefinedBy" href="#">Back to Top</a></p>
+	</section>
       </section>
-      <section id="view-of" about="cgto:view-of" typeof="owl:ObjectProperty owl:FunctionalProperty">
-        <h3><code property="rdfs:label" datatype="xsd:token">view-of</code></h3>
-        <p property="rdfs:comment">Relates a view back to its <code>cgto:Space</code>.</p>
-        <dl>
-          <dt>Domain:</dt>
-          <dd><a rel="rdfs:domain" href="#View"><code>cgto:View</code></a></dd>
-          <dt>Range:</dt>
-          <dd><a rel="rdfs:range" href="#Space"><code>cgto:Space</code></a></dd>
-          <dt>Sub-property of:</dt>
-          <dd><a rel="rdfs:subPropertyOf" resource="http://rdfs.org/sioc/ns#has_space" href="http://rdfs.org/sioc/spec/#term_has_space"><code>sioc:has_space</code></a></dd>
-          <dt>Inverse of:</dt>
-          <dd><a rel="owl:inverseOf" href="#view"><code>cgto:view</code></a></dd>
-        </dl>
-        <p><a rel="rdfs:isDefinedBy" href="#">Back to Top</a></p>
+      <section id="sec-summaries">
+	<h3>Summaries</h3>
+	<section id="summary" about="cgto:summary" typeof="owl:ObjectProperty">
+          <h4><code property="rdfs:label" datatype="xsd:token">summary</code></h4>
+          <p property="rdfs:comment">Connects the <code>cgto:Space</code> to its <code>cgto:Index</code> of resources.</p>
+          <dl>
+            <dt>Domain:</dt>
+            <dd><a rel="rdfs:domain" href="#Index"><code>cgto:Index</code></a></dd>
+            <dt>Range:</dt>
+            <dd><a rel="rdfs:range" href="#Summary"><code>cgto:Summary</code></a></dd>
+            <dt>Sub-property of:</dt>
+            <dd><a rel="rdfs:subPropertyOf" resource="http://rdfs.org/sioc/ns#parent_of" href="http://rdfs.org/sioc/spec/#term_parent_of"><code>sioc:parent_of</code></a></dd>
+          </dl>
+          <p><a rel="rdfs:isDefinedBy" href="#">Back to Top</a></p>
+	</section>
+	<section id="by-class" about="cgto:by-class" typeof="owl:ObjectProperty owl:FunctionalProperty">
+          <h4><code property="rdfs:label" datatype="xsd:token">by-class</code></h4>
+          <p property="rdfs:comment">Specifies the index of inventories organized by <code>rdfs:Class</code>.</p>
+          <dl>
+            <dt>Domain:</dt>
+            <dd><a rel="rdfs:domain" href="#Index"><code>cgto:Index</code></a></dd>
+            <dt>Range:</dt>
+            <dd><a rel="rdfs:range" href="#Summary"><code>cgto:Summary</code></a></dd>
+            <dt>Sub-property of:</dt>
+            <dd><a rel="rdfs:subPropertyOf" href="#summary"><code>cgto:summary</code></a></dd>
+          </dl>
+          <p><a rel="rdfs:isDefinedBy" href="#">Back to Top</a></p>
+	</section>
+	<section id="by-property" about="cgto:by-property" typeof="owl:ObjectProperty owl:FunctionalProperty">
+          <h4><code property="rdfs:label" datatype="xsd:token">by-property</code></h4>
+          <p property="rdfs:comment">Connects the <code>cgto:Space</code> to its <code>cgto:Index</code> of resources.</p>
+          <dl>
+            <dt>Domain:</dt>
+            <dd><a rel="rdfs:domain" href="#Index"><code>cgto:Index</code></a></dd>
+            <dt>Range:</dt>
+            <dd><a rel="rdfs:range" href="#Summary"><code>cgto:Summary</code></a></dd>
+            <dt>Sub-property of:</dt>
+            <dd><a rel="rdfs:subPropertyOf" href="#summary"><code>cgto:summary</code></a></dd>
+          </dl>
+          <p><a rel="rdfs:isDefinedBy" href="#">Back to Top</a></p>
+	</section>
       </section>
-      <section id="index" about="cgto:index" typeof="owl:ObjectProperty owl:FunctionalProperty">
-        <h3><code property="rdfs:label" datatype="xsd:token">index</code></h3>
-        <p property="rdfs:comment">Connects the <code>cgto:Space</code> to its <code>cgto:Index</code> of resources.</p>
-        <dl>
-          <dt>Domain:</dt>
-          <dd><a rel="rdfs:domain" href="#Space"><code>cgto:Space</code></a></dd>
-          <dt>Range:</dt>
-          <dd><a rel="rdfs:range" href="#Index"><code>cgto:Index</code></a></dd>
-          <dt>Sub-property of:</dt>
-          <dd><a rel="rdfs:subPropertyOf" resource="sioc:space_of" href="http://rdfs.org/sioc/spec/#term_space_of"><code>sioc:space_of</code></a></dd>
-          <dd><a rel="rdfs:subPropertyOf" resource="xhv:index" href="https://www.w3.org/1999/xhtml/vocab#index"><code>xhv:index</code></a></dd>
-        </dl>
-        <p><a rel="rdfs:isDefinedBy" href="#">Back to Top</a></p>
-      </section>
-      <section id="summary" about="cgto:summary" typeof="owl:ObjectProperty">
-        <h3><code property="rdfs:label" datatype="xsd:token">summary</code></h3>
-        <p property="rdfs:comment">Connects the <code>cgto:Space</code> to its <code>cgto:Index</code> of resources.</p>
-        <dl>
-          <dt>Domain:</dt>
-          <dd><a rel="rdfs:domain" href="#Index"><code>cgto:Index</code></a></dd>
-          <dt>Range:</dt>
-          <dd><a rel="rdfs:range" href="#Summary"><code>cgto:Summary</code></a></dd>
-          <dt>Sub-property of:</dt>
-          <dd><a rel="rdfs:subPropertyOf" resource="http://rdfs.org/sioc/ns#parent_of" href="http://rdfs.org/sioc/spec/#term_parent_of"><code>sioc:parent_of</code></a></dd>
-        </dl>
-        <p><a rel="rdfs:isDefinedBy" href="#">Back to Top</a></p>
-      </section>
-      <section id="by-class" about="cgto:by-class" typeof="owl:ObjectProperty owl:FunctionalProperty">
-        <h3><code property="rdfs:label" datatype="xsd:token">by-class</code></h3>
-        <p property="rdfs:comment">Specifies the index of inventories organized by <code>rdfs:Class</code>.</p>
-        <dl>
-          <dt>Domain:</dt>
-          <dd><a rel="rdfs:domain" href="#Index"><code>cgto:Index</code></a></dd>
-          <dt>Range:</dt>
-          <dd><a rel="rdfs:range" href="#Summary"><code>cgto:Summary</code></a></dd>
-          <dt>Sub-property of:</dt>
-          <dd><a rel="rdfs:subPropertyOf" href="#summary"><code>cgto:summary</code></a></dd>
-        </dl>
-        <p><a rel="rdfs:isDefinedBy" href="#">Back to Top</a></p>
-      </section>
-      <section id="by-property" about="cgto:by-property" typeof="owl:ObjectProperty owl:FunctionalProperty">
-        <h3><code property="rdfs:label" datatype="xsd:token">by-property</code></h3>
-        <p property="rdfs:comment">Connects the <code>cgto:Space</code> to its <code>cgto:Index</code> of resources.</p>
-        <dl>
-          <dt>Domain:</dt>
-          <dd><a rel="rdfs:domain" href="#Index"><code>cgto:Index</code></a></dd>
-          <dt>Range:</dt>
-          <dd><a rel="rdfs:range" href="#Summary"><code>cgto:Summary</code></a></dd>
-          <dt>Sub-property of:</dt>
-          <dd><a rel="rdfs:subPropertyOf" href="#summary"><code>cgto:summary</code></a></dd>
-        </dl>
-        <p><a rel="rdfs:isDefinedBy" href="#">Back to Top</a></p>
+      <section id="sec-windows">
+	<h3>Windows</h3>
+	<section id="window" about="cgto:window" typeof="owl:ObjectProperty">
+          <h4><code property="rdfs:label" datatype="xsd:token">window</code></h4>
+          <p property="rdfs:comment">Relates a collection to an arbitrary window over the collection.</p>
+          <dl>
+            <dt>Domain:</dt>
+            <dd><a rel="rdfs:domain" resource="rdfs:Container" href="https://www.w3.org/TR/rdf11-schema/#ch_container"><code>rdfs:Container</code></a></dd>
+            <dt>Range:</dt>
+            <dd><a rel="rdfs:range" href="#Window"><code>cgto:Window</code></a></dd>
+            <dt>Inverse of:</dt>
+            <dd><a rel="owl:inverseOf" href="#window-of"><code>cgto:window-of</code></a></dd>
+          </dl>
+          <p><a rel="rdfs:isDefinedBy" href="#">Back to Top</a></p>
+	</section>
+	<section id="window-of" about="cgto:window-of" typeof="owl:ObjectProperty">
+          <h4><code property="rdfs:label" datatype="xsd:token">window-of</code></h4>
+          <p property="rdfs:comment">Points a window to the collection it slices.</p>
+          <dl>
+            <dt>Domain:</dt>
+            <dd><a rel="rdfs:domain" href="#Window"><code>cgto:Window</code></a></dd>
+            <dt>Range:</dt>
+            <dd><a rel="rdfs:range" resource="rdfs:Container" href="https://www.w3.org/TR/rdf11-schema/#ch_container"><code>rdfs:Container</code></a></dd>
+            <dt>Inverse of:</dt>
+            <dd><a rel="owl:inverseOf" href="#window"><code>cgto:window</code></a></dd>
+          </dl>
+          <p><a rel="rdfs:isDefinedBy" href="#">Back to Top</a></p>
+	</section>
+	<section id="first-window" about="cgto:first-window" typeof="owl:ObjectProperty">
+          <h4><code property="rdfs:label" datatype="xsd:token">first-window</code></h4>
+          <p property="rdfs:comment">Points to the first window over a collection.</p>
+          <dl>
+            <dt>Domain:</dt>
+            <dd><a rel="rdfs:domain" resource="rdfs:Container" href="https://www.w3.org/TR/rdf11-schema/#ch_container"><code>rdfs:Container</code></a></dd>
+            <dt>Range:</dt>
+            <dd><a rel="rdfs:range" href="#Window"><code>cgto:Window</code></a></dd>
+            <dt>Sub-property of:</dt>
+            <dd><a rel="rdfs:subPropertyOf" href="#window"><code>cgto:window</code></a></dd>
+            <dd><a rel="rdfs:subPropertyOf" resource="xhv:first" href="https://www.w3.org/1999/xhtml/vocab#first"><code>xhv:first</code></a></dd>
+          </dl>
+          <p><a rel="rdfs:isDefinedBy" href="#">Back to Top</a></p>
+	</section>
       </section>
     </section>
     <section>
@@ -269,14 +349,14 @@
           <dl rel="qb:component">
             <dt>Components:</dt>
             <dd typeof="qb:ComponentSpecification"><a rel="qb:dimension" href="#property"><code>cgto:property</code></a></dd>
-            <dd typeof="qb:ComponentSpecification"><a rel="qb:attribute" href="#asserted-domain"><code>cgto:asserted-domain</code></a></dd>
-            <dd typeof="qb:ComponentSpecification"><a rel="qb:measure" href="#asserted-domain-count"><code>cgto:asserted-domain-count</code></a></dd>
-            <dd typeof="qb:ComponentSpecification"><a rel="qb:attribute" href="#asserted-range"><code>cgto:asserted-range</code></a></dd>
-            <dd typeof="qb:ComponentSpecification"><a rel="qb:measure" href="#asserted-range-count"><code>cgto:asserted-range-count</code></a></dd>
-            <dd typeof="qb:ComponentSpecification"><a rel="qb:attribute" href="#inferred-domain"><code>cgto:inferred-domain</code></a></dd>
-            <dd typeof="qb:ComponentSpecification"><a rel="qb:measure" href="#inferred-domain-count"><code>cgto:inferred-domain-count</code></a></dd>
-            <dd typeof="qb:ComponentSpecification"><a rel="qb:attribute" href="#inferred-range"><code>cgto:inferred-range</code></a></dd>
-            <dd typeof="qb:ComponentSpecification"><a rel="qb:measure" href="#inferred-range-count"><code>cgto:inferred-range-count</code></a></dd>
+            <dd typeof="qb:ComponentSpecification"><a rel="qb:attribute" href="#asserted-subjects"><code>cgto:asserted-subjects</code></a></dd>
+            <dd typeof="qb:ComponentSpecification"><a rel="qb:measure" href="#asserted-subject-count"><code>cgto:asserted-subject-count</code></a></dd>
+            <dd typeof="qb:ComponentSpecification"><a rel="qb:attribute" href="#asserted-objects"><code>cgto:asserted-objects</code></a></dd>
+            <dd typeof="qb:ComponentSpecification"><a rel="qb:measure" href="#asserted-object-count"><code>cgto:asserted-object-count</code></a></dd>
+            <dd typeof="qb:ComponentSpecification"><a rel="qb:attribute" href="#inferred-subjects"><code>cgto:inferred-subjects</code></a></dd>
+            <dd typeof="qb:ComponentSpecification"><a rel="qb:measure" href="#inferred-subject-count"><code>cgto:inferred-subject-count</code></a></dd>
+            <dd typeof="qb:ComponentSpecification"><a rel="qb:attribute" href="#inferred-objects"><code>cgto:inferred-objects</code></a></dd>
+            <dd typeof="qb:ComponentSpecification"><a rel="qb:measure" href="#inferred-object-count"><code>cgto:inferred-object-count</code></a></dd>
           </dl>
         </section>
       </section>
@@ -290,7 +370,7 @@
             <dt>Domain:</dt>
             <dd><a rel="rdfs:domain" resource="qb:Observation" href="https://www.w3.org/TR/vocab-data-cube/#ref_qb_Observation"><code>qb:Observation</code></a></dd>
             <dt>Range:</dt>
-            <dd><a rel="rdfs:range" resource="rdfs:Class" href="https://www.w3.org/TR/rdf-schema/#ch_class"><code>rdfs:Class</code></a></dd>
+            <dd><a rel="rdfs:range" resource="rdfs:Class" href="https://www.w3.org/TR/rdf11-schema/#ch_class"><code>rdfs:Class</code></a></dd>
           </dl>
           <p><a rel="rdfs:isDefinedBy" href="#">Back to Top</a></p>
         </section>
@@ -301,7 +381,7 @@
             <dt>Domain:</dt>
             <dd><a rel="rdfs:domain" resource="qb:Observation" href="https://www.w3.org/TR/vocab-data-cube/#ref_qb_Observation"><code>qb:Observation</code></a></dd>
             <dt>Range:</dt>
-            <dd><a rel="rdfs:range" resource="rdf:Property" href="https://www.w3.org/TR/rdf-schema/#ch_property"><code>rdf:Property</code></a></dd>
+            <dd><a rel="rdfs:range" resource="rdf:Property" href="https://www.w3.org/TR/rdf11-schema/#ch_property"><code>rdf:Property</code></a></dd>
           </dl>
           <p><a rel="rdfs:isDefinedBy" href="#">Back to Top</a></p>
         </section>
@@ -309,28 +389,6 @@
       <section>
         <h3>Measure Properties</h3>
         <p>Measure properties record the experimental data, which in this case amounts to counts of resources.</p>
-        <section id="asserted-domain-count" about="cgto:asserted-domain-count" typeof="qb:MeasureProperty owl:DatatypeProperty">
-          <h4><code property="rdfs:label" datatype="xsd:token">asserted-domain-count</code></h4>
-          <p property="rdfs:comment"></p>
-          <dl>
-            <dt>Domain:</dt>
-            <dd><a rel="rdfs:domain" resource="qb:Observation" href="https://www.w3.org/TR/vocab-data-cube/#ref_qb_Observation"><code>qb:Observation</code></a></dd>
-            <dt>Range:</dt>
-            <dd><a rel="rdfs:range" resource="xsd:nonNegativeInteger" href="https://www.w3.org/TR/xmlschema-2/#nonNegativeInteger"><code>xsd:nonNegativeInteger</code></a></dd>
-          </dl>
-          <p><a rel="rdfs:isDefinedBy" href="#">Back to Top</a></p>
-        </section>
-        <section id="asserted-range-count" about="cgto:asserted-range-count" typeof="qb:MeasureProperty owl:DatatypeProperty">
-          <h4><code property="rdfs:label" datatype="xsd:token">asserted-range-count</code></h4>
-          <p property="rdfs:comment"></p>
-          <dl>
-            <dt>Domain:</dt>
-            <dd><a rel="rdfs:domain" resource="qb:Observation" href="https://www.w3.org/TR/vocab-data-cube/#ref_qb_Observation"><code>qb:Observation</code></a></dd>
-            <dt>Range:</dt>
-            <dd><a rel="rdfs:range" resource="xsd:nonNegativeInteger" href="https://www.w3.org/TR/xmlschema-2/#nonNegativeInteger"><code>xsd:nonNegativeInteger</code></a></dd>
-          </dl>
-          <p><a rel="rdfs:isDefinedBy" href="#">Back to Top</a></p>
-        </section>
         <section id="asserted-subject-count" about="cgto:asserted-subject-count" typeof="qb:MeasureProperty owl:DatatypeProperty">
           <h4><code property="rdfs:label" datatype="xsd:token">asserted-subject-count</code></h4>
           <p property="rdfs:comment">Specifies the number of subject resources <em>asserted</em> to relate according to the given criterion.</p>
@@ -342,19 +400,8 @@
           </dl>
           <p><a rel="rdfs:isDefinedBy" href="#">Back to Top</a></p>
         </section>
-        <section id="inferred-domain-count" about="cgto:inferred-domain-count" typeof="qb:MeasureProperty owl:DatatypeProperty">
-          <h4><code property="rdfs:label" datatype="xsd:token">inferred-domain-count</code></h4>
-          <p property="rdfs:comment"></p>
-          <dl>
-            <dt>Domain:</dt>
-            <dd><a rel="rdfs:domain" resource="qb:Observation" href="https://www.w3.org/TR/vocab-data-cube/#ref_qb_Observation"><code>qb:Observation</code></a></dd>
-            <dt>Range:</dt>
-            <dd><a rel="rdfs:range" resource="xsd:nonNegativeInteger" href="https://www.w3.org/TR/xmlschema-2/#nonNegativeInteger"><code>xsd:nonNegativeInteger</code></a></dd>
-          </dl>
-          <p><a rel="rdfs:isDefinedBy" href="#">Back to Top</a></p>
-        </section>
-        <section id="inferred-range-count" about="cgto:inferred-range-count" typeof="qb:MeasureProperty owl:DatatypeProperty">
-          <h4><code property="rdfs:label" datatype="xsd:token">inferred-range-count</code></h4>
+        <section id="asserted-object-count" about="cgto:asserted-object-count" typeof="qb:MeasureProperty owl:DatatypeProperty">
+          <h4><code property="rdfs:label" datatype="xsd:token">asserted-object-count</code></h4>
           <p property="rdfs:comment"></p>
           <dl>
             <dt>Domain:</dt>
@@ -375,33 +422,22 @@
           </dl>
           <p><a rel="rdfs:isDefinedBy" href="#">Back to Top</a></p>
         </section>
+        <section id="inferred-object-count" about="cgto:inferred-object-count" typeof="qb:MeasureProperty owl:DatatypeProperty">
+          <h4><code property="rdfs:label" datatype="xsd:token">inferred-object-count</code></h4>
+          <p property="rdfs:comment"></p>
+          <dl>
+            <dt>Domain:</dt>
+            <dd><a rel="rdfs:domain" resource="qb:Observation" href="https://www.w3.org/TR/vocab-data-cube/#ref_qb_Observation"><code>qb:Observation</code></a></dd>
+            <dt>Range:</dt>
+            <dd><a rel="rdfs:range" resource="xsd:nonNegativeInteger" href="https://www.w3.org/TR/xmlschema-2/#nonNegativeInteger"><code>xsd:nonNegativeInteger</code></a></dd>
+          </dl>
+          <p><a rel="rdfs:isDefinedBy" href="#">Back to Top</a></p>
+        </section>
       </section>
       <section>
         <h3>Attribute Properties</h3>
         <p>Attribute properties are used to qualify the data. In this case they are being appropriated to link to the actual inventories of resources.</p>
-        <section id="asserted-domain" about="cgto:asserted-domain" typeof="qb:AttributeProperty owl:ObjectProperty">
-          <h4><code property="rdfs:label" datatype="xsd:token">asserted-domain</code></h4>
-          <p property="rdfs:comment"></p>
-          <dl>
-            <dt>Domain:</dt>
-            <dd><a rel="rdfs:domain" resource="qb:Observation" href="https://www.w3.org/TR/vocab-data-cube/#ref_qb_Observation"><code>qb:Observation</code></a></dd>
-            <dt>Range:</dt>
-            <dd><a rel="rdfs:range" href="#Inventory"><code>cgto:Inventory</code></a></dd>
-          </dl>
-          <p><a rel="rdfs:isDefinedBy" href="#">Back to Top</a></p>
-        </section>
-        <section id="asserted-range" about="cgto:asserted-range" typeof="qb:AttributeProperty owl:ObjectProperty">
-          <h4><code property="rdfs:label" datatype="xsd:token">asserted-range</code></h4>
-          <p property="rdfs:comment"></p>
-          <dl>
-            <dt>Domain:</dt>
-            <dd><a rel="rdfs:domain" resource="qb:Observation" href="https://www.w3.org/TR/vocab-data-cube/#ref_qb_Observation"><code>qb:Observation</code></a></dd>
-            <dt>Range:</dt>
-            <dd><a rel="rdfs:range" href="#Inventory"><code>cgto:Inventory</code></a></dd>
-          </dl>
-          <p><a rel="rdfs:isDefinedBy" href="#">Back to Top</a></p>
-        </section>
-        <section id="asserted-subjects" about="cgto:assertedsubjects" typeof="qb:AttributeProperty owl:ObjectProperty">
+        <section id="asserted-subjects" about="cgto:asserted-subjects" typeof="qb:AttributeProperty owl:ObjectProperty">
           <h4><code property="rdfs:label" datatype="xsd:token">asserted-subjects</code></h4>
           <p property="rdfs:comment"></p>
           <dl>
@@ -412,19 +448,8 @@
           </dl>
           <p><a rel="rdfs:isDefinedBy" href="#">Back to Top</a></p>
         </section>
-        <section id="inferred-domain" about="cgto:inferred-domain" typeof="qb:AttributeProperty owl:ObjectProperty">
-          <h4><code property="rdfs:label" datatype="xsd:token">inferred-domain</code></h4>
-          <p property="rdfs:comment"></p>
-          <dl>
-            <dt>Domain:</dt>
-            <dd><a rel="rdfs:domain" resource="qb:Observation" href="https://www.w3.org/TR/vocab-data-cube/#ref_qb_Observation"><code>qb:Observation</code></a></dd>
-            <dt>Range:</dt>
-            <dd><a rel="rdfs:range" href="#Inventory"><code>cgto:Inventory</code></a></dd>
-          </dl>
-          <p><a rel="rdfs:isDefinedBy" href="#">Back to Top</a></p>
-        </section>
-        <section id="inferred-range" about="cgto:inferred-range" typeof="qb:AttributeProperty owl:ObjectProperty">
-          <h4><code property="rdfs:label" datatype="xsd:token">inferred-range</code></h4>
+        <section id="asserted-objects" about="cgto:asserted-objects" typeof="qb:AttributeProperty owl:ObjectProperty">
+          <h4><code property="rdfs:label" datatype="xsd:token">asserted-objects</code></h4>
           <p property="rdfs:comment"></p>
           <dl>
             <dt>Domain:</dt>
@@ -445,7 +470,27 @@
           </dl>
           <p><a rel="rdfs:isDefinedBy" href="#">Back to Top</a></p>
         </section>
+        <section id="inferred-objects" about="cgto:inferred-objects" typeof="qb:AttributeProperty owl:ObjectProperty">
+          <h4><code property="rdfs:label" datatype="xsd:token">inferred-objects</code></h4>
+          <p property="rdfs:comment"></p>
+          <dl>
+            <dt>Domain:</dt>
+            <dd><a rel="rdfs:domain" resource="qb:Observation" href="https://www.w3.org/TR/vocab-data-cube/#ref_qb_Observation"><code>qb:Observation</code></a></dd>
+            <dt>Range:</dt>
+            <dd><a rel="rdfs:range" href="#Inventory"><code>cgto:Inventory</code></a></dd>
+          </dl>
+          <p><a rel="rdfs:isDefinedBy" href="#">Back to Top</a></p>
+        </section>
       </section>
+    </section>
+    <section>
+      <h2>References</h2>
+      <ul rel="owl:imports">
+	<li><a resource="qb:" href="https://www.w3.org/TR/vocab-data-cube/"><abbr>RDF</abbr> Data Cube Vocabulary</a></li>
+	<li><a resource="rdfs:" href="https://www.w3.org/TR/rdf11-schema/"><abbr>RDF</abbr> Schema 1.1</a></li>
+	<li><a resource="sioc:" href="http://rdfs.org/sioc/spec/"><abbr>SIOC</abbr></a></li>
+	<li><a resource="xhv:" href="https://www.w3.org/1999/xhtml/vocab"><abbr>XHTML</abbr> Vocabulary</a></li>
+      </ul>
     </section>
   </body>
 </html>
