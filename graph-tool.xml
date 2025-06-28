@@ -42,6 +42,7 @@
         <dd property="dct:modified" datatype="xsd:dateTime" content="2024-10-06T19:16:59Z">October 6, 2024</dd>
         <dd property="dct:modified" datatype="xsd:dateTime" content="2025-02-23T01:28:27Z">February 22, 2025</dd>
         <dd property="dct:modified" datatype="xsd:dateTime" content="2025-02-28T14:20:07Z">February 28, 2025</dd>
+        <dd property="dct:modified" datatype="xsd:dateTime" content="2025-06-28T22:27:24Z">June 28, 2025</dd>
         <dt>Namespace URI</dt>
         <dd><a about="#" rel="sh:namespace vann:preferredNamespaceUri" href="#"><code>https://vocab.methodandstructure.com/graph-tool#</code></a></dd>
         <dt>Preferred Namespace Prefix</dt>
@@ -160,31 +161,76 @@
           <p>This diagram depicts the ontology from the point of view of its properties.</p>
         </figcaption>
       </figure>
-      <section id="sec-foci">
-	<h3>Foci</h3>
+      <section id="sec-states">
+	<h3>States</h3>
 	<section id="focus" about="cgto:focus" typeof="owl:ObjectProperty owl:FunctionalProperty">
           <h4><code property="rdfs:label" datatype="xsd:token">focus</code></h4>
-          <p property="rdfs:comment">The entity that takes primary focus in the space is what will be shown, e.g. on the front page of a Web app.</p>
+          <p property="rdfs:comment">This property picks out the resource that is currently <q>in focus</q> to the user.</p>
           <dl>
             <dt>Domain:</dt>
-            <dd><a rel="rdfs:domain" href="#Space"><code>cgto:Space</code></a></dd>
+            <dd><a rel="rdfs:domain" href="#State"><code>cgto:State</code></a></dd>
             <dt>Inverse of:</dt>
             <dd><a rel="owl:inverseOf" href="#focus-of"><code>cgto:focus-of</code></a></dd>
-            <dt>Sub-property of:</dt>
-            <dd><a rel="rdfs:subPropertyOf" resource="http://rdfs.org/sioc/ns#space_of" href="http://rdfs.org/sioc/spec/#term_space_of"><code>sioc:space_of</code></a></dd>
+            <!--<dt>Sub-property of:</dt>
+            <dd><a rel="rdfs:subPropertyOf" resource="http://rdfs.org/sioc/ns#space_of" href="http://rdfs.org/sioc/spec/#term_space_of"><code>sioc:space_of</code></a></dd>-->
           </dl>
           <p><a rel="rdfs:isDefinedBy" href="#">Back to Top</a></p>
 	</section>
 	<section id="focus-of" about="cgto:focus-of" typeof="owl:ObjectProperty owl:InverseFunctionalProperty">
           <h4><code property="rdfs:label" datatype="xsd:token">focus-of</code></h4>
-          <p property="rdfs:comment">The entity that takes primary focus in the space is what will be shown, e.g. on the front page of a Web app.</p>
+          <p property="rdfs:comment">This property relates the focus back to the user state.</p>
           <dl>
             <dt>Range:</dt>
-            <dd><a rel="rdfs:range" href="#Space"><code>cgto:Space</code></a></dd>
+            <dd><a rel="rdfs:range" href="#State"><code>cgto:State</code></a></dd>
             <dt>Inverse of:</dt>
             <dd><a rel="owl:inverseOf" href="#focus"><code>cgto:focus</code></a></dd>
-            <dt>Sub-property of:</dt>
-            <dd><a rel="rdfs:subPropertyOf" resource="http://rdfs.org/sioc/ns#has_space" href="http://rdfs.org/sioc/spec/#term_has_space"><code>sioc:space_of</code></a></dd>
+            <!--<dt>Sub-property of:</dt>
+            <dd><a rel="rdfs:subPropertyOf" resource="http://rdfs.org/sioc/ns#has_space" href="http://rdfs.org/sioc/spec/#term_has_space"><code>sioc:space_of</code></a></dd>-->
+          </dl>
+          <p><a rel="rdfs:isDefinedBy" href="#">Back to Top</a></p>
+	</section>
+	<section id="owner" about="cgto:owner" typeof="owl:ObjectProperty owl:InverseFunctionalProperty">
+          <h4><code property="rdfs:label" datatype="xsd:token">owner</code></h4>
+          <p property="rdfs:comment">This property relates a <code>cgto:State</code> to the <code>foaf:Agent</code> associated with it.</p>
+	  <aside role="note">
+	    <p property="skos:note">This property and its relatives originally related to <code>foaf:OnlineAccount</code>&#x2014;and may again&#x2014;although for operational reasons this was inconvenient at the time (<time>2025-03-12</time>).</p>
+	  </aside>
+          <dl>
+            <dt>Domain:</dt>
+            <dd><a rel="rdfs:domain" href="#State"><code>cgto:State</code></a></dd>
+            <dt>Range:</dt>
+            <!--<dd><a rel="rdfs:range" resource="foaf:OnlineAccount" href="http://xmlns.com/foaf/spec/#term_OnlineAccount"><code>foaf:OnlineAccount</code></a></dd>-->
+	    <dd><a rel="rdfs:range" resource="foaf:Agent" href="http://xmlns.com/foaf/spec/#term_Agent"><code>foaf:Agent</code></a></dd>
+            <dt>Inverse of:</dt>
+            <dd><a rel="owl:inverseOf" href="#state"><code>cgto:state</code></a></dd>
+          </dl>
+          <p><a rel="rdfs:isDefinedBy" href="#">Back to Top</a></p>
+	</section>
+	<section id="state" about="cgto:state" typeof="owl:ObjectProperty owl:InverseFunctionalProperty">
+          <h4><code property="rdfs:label" datatype="xsd:token">state</code></h4>
+          <p property="rdfs:comment">This property relates a <code>cgto:State</code> to the <code>foaf:Agent</code> associated with it.</p>
+          <dl>
+            <dt>Domain:</dt>
+            <!--<dd><a rel="rdfs:domain" resource="foaf:OnlineAccount" href="http://xmlns.com/foaf/spec/#term_OnlineAccount"><code>foaf:OnlineAccount</code></a></dd>-->
+            <dd><a rel="rdfs:domain" resource="foaf:Agent" href="http://xmlns.com/foaf/spec/#term_Agent"><code>foaf:Agent</code></a></dd>
+            <dt>Range:</dt>
+            <dd><a rel="rdfs:range" href="#State"><code>cgto:State</code></a></dd>
+            <dt>Inverse of:</dt>
+            <dd><a rel="owl:inverseOf" href="#owner"><code>cgto:state</code></a></dd>
+          </dl>
+          <p><a rel="rdfs:isDefinedBy" href="#">Back to Top</a></p>
+	</section>
+	<section id="user" about="cgto:user" typeof="owl:ObjectProperty owl:InverseFunctionalProperty">
+          <h4><code property="rdfs:label" datatype="xsd:token">user</code></h4>
+          <p property="rdfs:comment">This property relates the <code>cgto:Index</code> to the <code>foaf:Agent</code> that reprsents the current user.</p>
+          <dl>
+            <dt>Domain:</dt>
+            <dd><a rel="rdfs:domain" href="#Index"><code>cgto:Index</code></a></dd>
+            <dt>Range:</dt>
+            <!--<dd><a rel="rdfs:range" resource="foaf:OnlineAccount" href="http://xmlns.com/foaf/spec/#term_OnlineAccount"><code>foaf:OnlineAccount</code></a></dd>-->
+            <dd><a rel="rdfs:range" resource="foaf:Agent" href="http://xmlns.com/foaf/spec/#term_Agent"><code>foaf:Agent</code></a></dd>
+            <dt>Inverse of:</dt>
+            <dd><a rel="owl:inverseOf" href="#owner"><code>cgto:state</code></a></dd>
           </dl>
           <p><a rel="rdfs:isDefinedBy" href="#">Back to Top</a></p>
 	</section>
@@ -280,6 +326,75 @@
           </dl>
           <p><a rel="rdfs:isDefinedBy" href="#">Back to Top</a></p>
 	</section>
+      </section>
+      <section id="sec-inventories">
+        <h3>Inventories</h3>
+	<section id="instance-of" about="cgto:instance-of" typeof="owl:ObjectProperty">
+          <h4><code property="rdfs:label" datatype="xsd:token">instance-of</code></h4>
+          <p property="rdfs:comment">The parameter specifying the classes that resources selected into the inventory are instances of.</p>
+          <dl>
+            <dt>Domain:</dt>
+            <dd><a rel="rdfs:domain" href="#Inventory"><code>cgto:Inventory</code></a></dd>
+            <dt>Range:</dt>
+            <dd><a rel="rdfs:range" resource="rdfs:Class" href="https://www.w3.org/TR/rdf11-schema/#ch_class"><code>rdfs:Class</code></a></dd>
+          </dl>
+          <p><a rel="rdfs:isDefinedBy" href="#">Back to Top</a></p>
+	</section>
+	<section id="instance-of" about="cgto:instance-of" typeof="owl:ObjectProperty">
+          <h4><code property="rdfs:label" datatype="xsd:token">instance-of</code></h4>
+          <p property="rdfs:comment">The parameter specifying the classes that resources selected into the inventory are instances of.</p>
+          <dl>
+            <dt>Domain:</dt>
+            <dd><a rel="rdfs:domain" href="#Inventory"><code>cgto:Inventory</code></a></dd>
+            <dt>Range:</dt>
+            <dd><a rel="rdfs:range" resource="rdfs:Class" href="https://www.w3.org/TR/rdf11-schema/#ch_class"><code>rdfs:Class</code></a></dd>
+          </dl>
+          <p><a rel="rdfs:isDefinedBy" href="#">Back to Top</a></p>
+	</section>
+	<section id="in-domain-of" about="cgto:in-domain-of" typeof="owl:ObjectProperty">
+          <h4><code property="rdfs:label" datatype="xsd:token">in-domain-of</code></h4>
+          <p property="rdfs:comment">The parameter specifying the property that resources selected into the inventory are in the domain of.</p>
+          <dl>
+            <dt>Domain:</dt>
+            <dd><a rel="rdfs:domain" href="#Inventory"><code>cgto:Inventory</code></a></dd>
+            <dt>Range:</dt>
+            <dd><a rel="rdfs:range" resource="rdf:Property" href="https://www.w3.org/TR/rdf11-schema/#ch_property"><code>rdf:Property</code></a></dd>
+          </dl>
+          <p><a rel="rdfs:isDefinedBy" href="#">Back to Top</a></p>
+	</section>
+	<section id="in-range-of" about="cgto:in-range-of" typeof="owl:ObjectProperty">
+          <h4><code property="rdfs:label" datatype="xsd:token">in-range-of</code></h4>
+          <p property="rdfs:comment">The parameter specifying the property that resources selected into the inventory are in the range of.</p>
+          <dl>
+            <dt>Domain:</dt>
+            <dd><a rel="rdfs:domain" href="#Inventory"><code>cgto:Inventory</code></a></dd>
+            <dt>Range:</dt>
+            <dd><a rel="rdfs:range" resource="rdf:Property" href="https://www.w3.org/TR/rdf11-schema/#ch_property"><code>rdf:Property</code></a></dd>
+          </dl>
+          <p><a rel="rdfs:isDefinedBy" href="#">Back to Top</a></p>
+	</section>
+        <section id="asserted" about="cgto:asserted" typeof="owl:DatatypeProperty">
+          <h4><code property="rdfs:label" datatype="xsd:token">asserted</code></h4>
+          <p property="rdfs:comment">Specifies whether the inventory includes resources that are asserted from the parameters (assumed to be true).</p>
+          <dl>
+            <dt>Domain:</dt>
+            <dd><a rel="rdfs:domain" href="#Inventory"><code>cgto:Inventory</code></a></dd>
+            <dt>Range:</dt>
+            <dd><a rel="rdfs:range" resource="xsd:boolean" href="https://www.w3.org/TR/xmlschema-2/#boolean"><code>xsd:boolean</code></a></dd>
+          </dl>
+          <p><a rel="rdfs:isDefinedBy" href="#">Back to Top</a></p>
+        </section>
+        <section id="inferred" about="cgto:inferred" typeof="owl:DatatypeProperty">
+          <h4><code property="rdfs:label" datatype="xsd:token">inferred</code></h4>
+          <p property="rdfs:comment">Specifies whether the inventory includes resources that are inferred from the parameters, irrespective of whether they are asserted.</p>
+          <dl>
+            <dt>Domain:</dt>
+            <dd><a rel="rdfs:domain" href="#Inventory"><code>cgto:Inventory</code></a></dd>
+            <dt>Range:</dt>
+            <dd><a rel="rdfs:range" resource="xsd:boolean" href="https://www.w3.org/TR/xmlschema-2/#boolean"><code>xsd:boolean</code></a></dd>
+          </dl>
+          <p><a rel="rdfs:isDefinedBy" href="#">Back to Top</a></p>
+        </section>
       </section>
       <section id="sec-windows">
 	<h3>Windows</h3>

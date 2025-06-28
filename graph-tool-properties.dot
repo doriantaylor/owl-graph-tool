@@ -7,10 +7,12 @@ digraph {
 
     subgraph {
         node [shape=box, style=dashed];
-        foaf_OnlineAccount [label="foaf:OnlineAccount", href="http://xmlns.com/foaf/spec/#term_OnlineAccount"];
+        foaf_Agent [label="foaf:Agent", href="http://xmlns.com/foaf/spec/#term_Agent"];
+        // foaf_OnlineAccount [label="foaf:OnlineAccount", href="http://xmlns.com/foaf/spec/#term_OnlineAccount"];
         qb_Observation [label="qb:Observation", href="https://www.w3.org/TR/vocab-data-cube/#reference-observations"];
         rdfs_Resource [label="rdfs:Resource", href="https://www.w3.org/TR/rdf-schema/#ch_resource"];
-
+        rdfs_Class [label="rdfs:Class", href="https://www.w3.org/TR/rdf-schema/#ch_class"];
+        rdf_Property [label="rdf:Property", href="https://www.w3.org/TR/rdf-schema/#ch_property"];
     }
 
     // our classes
@@ -25,6 +27,13 @@ digraph {
         cgto_Summary [label="cgto:Summary", href="https://vocab.methodandstructure.com/graph-tool#Summary"];
         cgto_View [label="cgto:View", href="https://vocab.methodandstructure.com/graph-tool#View"];
         cgto_Window [label="cgto:Window", href="https://vocab.methodandstructure.com/graph-tool#Window"];
+    }
+
+    // datatypes
+
+    subgraph {
+        node [shape=note, style=dashed];
+        xsd_boolean [label="xsd:boolean", href="https://www.w3.org/TR/xmlschema-2/#boolean"]
     }
 
     // third-party properties
@@ -52,6 +61,11 @@ digraph {
     cgto_view  [label="cgto:view",  href="https://vocab.methodandstructure.com/graph-tool#view"];
     cgto_window [label="cgto:window", href="https://vocab.methodandstructure.com/graph-tool#window"];
     cgto_window_of [label="cgto:window-of", href="https://vocab.methodandstructure.com/graph-tool#window-of"];
+    cgto_instance_of [label="cgto:instance-of", href="https://vocab.methodandstructure.com/graph-tool#instance-of"];
+    cgto_in_domain_of [label="cgto:in-domain-of", href="https://vocab.methodandstructure.com/graph-tool#in-domain-of"];
+    cgto_in_range_of [label="cgto:in-range-of", href="https://vocab.methodandstructure.com/graph-tool#in-range-of"];
+    cgto_asserted [label="cgto:asserted", href="https://vocab.methodandstructure.com/graph-tool#asserted"];
+    cgto_inferred [label="cgto:inferred", href="https://vocab.methodandstructure.com/graph-tool#inferred"];
 
     // relations
 
@@ -60,22 +74,29 @@ digraph {
         cgto_by_class     -> cgto_summary -> sioc_parent_of;
         cgto_by_property  -> cgto_summary;
 	cgto_first_window -> cgto_window;
+        cgto_index        -> sioc_space_of;
+        cgto_view         -> sioc_space_of;
         // cgto_focus        -> sioc_space_of;
     }
 
     subgraph {
         edge [style=dashed, dir=back, label="rdfs:domain"];
+	cgto_Inventory -> cgto_window;
+	cgto_State     -> cgto_owner;
+	cgto_Window    -> cgto_window_of;
         cgto_Index     -> cgto_by_class;
         cgto_Index     -> cgto_by_property;
         cgto_Index     -> cgto_state;
         cgto_Index     -> cgto_summary;
         cgto_Index     -> cgto_user;
-	cgto_Inventory -> cgto_window;
+        cgto_Inventory -> cgto_asserted;
+        cgto_Inventory -> cgto_in_domain_of;
+        cgto_Inventory -> cgto_in_range_of;
+        cgto_Inventory -> cgto_inferred;
+        cgto_Inventory -> cgto_instance_of;
         cgto_Space     -> cgto_index;
         cgto_Space     -> cgto_view;
         cgto_State     -> cgto_focus;
-	cgto_State     -> cgto_owner;
-	cgto_Window    -> cgto_window_of;
         qb_Observation -> cgto_objects;
         qb_Observation -> cgto_subjects;
         qb_Observation -> qb_dataSet;
@@ -83,18 +104,23 @@ digraph {
 
     subgraph {
         edge [style=dashed, label="rdfs:range"];
-        cgto_by_class    -> cgto_Summary;
-        cgto_by_property -> cgto_Summary;
-        cgto_focus       -> rdfs_Resource;
-        cgto_index       -> cgto_Index;
-        cgto_objects     -> cgto_Inventory;
-        cgto_owner       -> foaf_OnlineAccount;
-        cgto_state       -> cgto_State;
-        cgto_subjects    -> cgto_Inventory;
-        cgto_summary     -> cgto_Summary;
-	cgto_user        -> foaf_OnlineAccount;
-        cgto_view        -> cgto_View;
-        cgto_window      -> cgto_Window;
-        qb_dataSet       -> cgto_Summary;
+	cgto_user         -> foaf_Agent;
+        cgto_asserted     -> xsd_boolean;
+        cgto_by_class     -> cgto_Summary;
+        cgto_by_property  -> cgto_Summary;
+        cgto_focus        -> rdfs_Resource;
+        cgto_in_domain_of -> rdf_Property;
+        cgto_in_range_of  -> rdf_Property;
+        cgto_index        -> cgto_Index;
+        cgto_inferred     -> xsd_boolean;
+        cgto_instance_of  -> rdfs_Class;
+        cgto_objects      -> cgto_Inventory;
+        cgto_owner        -> foaf_Agent;
+        cgto_state        -> cgto_State;
+        cgto_subjects     -> cgto_Inventory;
+        cgto_summary      -> cgto_Summary;
+        cgto_view         -> cgto_View;
+        cgto_window       -> cgto_Window;
+        qb_dataSet        -> cgto_Summary;
     }
 }

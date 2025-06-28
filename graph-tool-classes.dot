@@ -7,7 +7,8 @@ digraph classes {
         node [style=dashed];
 
         // owl_Thing [label="owl:Thing",href="https://www.w3.org/TR/2012/REC-owl2-syntax-20121211/#a_Thing"];
-        foaf_OnlineAccount [label="foaf:OnlineAccount", href="http://xmlns.com/foaf/spec/#term_OnlineAccount"];
+        foaf_Agent [label="foaf:Agent", href="http://xmlns.com/foaf/spec/#term_Agent"];
+        // foaf_OnlineAccount [label="foaf:OnlineAccount", href="http://xmlns.com/foaf/spec/#term_OnlineAccount"];
         qb_DataSet [label="qb:DataSet", href="https://www.w3.org/TR/vocab-data-cube/#reference-datasets"];
         qb_Observation [label="qb:Observation", href="https://www.w3.org/TR/vocab-data-cube/#reference-observations"];
         rdfs_Container [label="rdfs:Container", href="https://www.w3.org/TR/rdf-schema/#ch_container"];
@@ -45,11 +46,13 @@ digraph classes {
 
     cgto_Index -> cgto_State [label="cgto:state"];
     cgto_Index -> cgto_Summary [label="cgto:summary,\ncgto:by-subject,\ncgto:by-object"];
-    cgto_Index -> foaf_OnlineAccount [label="cgto:user"];
+    // cgto_Index -> foaf_OnlineAccount [label="cgto:user"];
+    cgto_Index -> foaf_Agent [label="cgto:user"];
     cgto_Inventory -> cgto_Window [label="cgto:window,\ncgto:first-window"];
     cgto_Space -> cgto_Index [label="cgto:index"];
     cgto_State -> cgto_View [label="cgto:view"];
-    cgto_State -> foaf_OnlineAccount [label="cgto:owner"];
+    // cgto_State -> foaf_OnlineAccount [label="cgto:owner"];
+    cgto_State -> foaf_Agent [label="cgto:owner"];
     cgto_State -> rdfs_Resource [label="cgto:focus"];
     qb_Observation -> cgto_Inventory [label="cgto:asserted-subjects,\ncgto:asserted-objects,\ncgto:inferred-subjects,\ncgto:inferred-objects"];
 }

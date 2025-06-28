@@ -22,6 +22,8 @@ February 22, 2025
 
 February 28, 2025
 
+June 28, 2025
+
 Namespace URI  
 <a href="https://vocab.methodandstructure.com/graph-tool#" about="#"
 rel="sh:namespace vann:preferredNamespaceUri"><code>https://vocab.methodandstructure.com/graph-tool#</code></a>
@@ -225,30 +227,25 @@ rel="rdfs:isDefinedBy">Back to Top</a>
 of its properties.</p></figcaption>
 </figure>
 
-<div id="sec-foci" class="section">
+<div id="sec-states" class="section">
 
-### Foci
+### States
 
 <div id="focus" class="section" about="cgto:focus"
 typeof="owl:ObjectProperty owl:FunctionalProperty">
 
 #### `focus`
 
-The entity that takes primary focus in the space is what will be shown,
-e.g. on the front page of a Web app.
+This property picks out the resource that is currently “in focus” to the
+user.
 
 Domain:  
-<a href="https://vocab.methodandstructure.com/graph-tool#Space"
-rel="rdfs:domain"><code>cgto:Space</code></a>
+<a href="https://vocab.methodandstructure.com/graph-tool#State"
+rel="rdfs:domain"><code>cgto:State</code></a>
 
 Inverse of:  
 <a href="https://vocab.methodandstructure.com/graph-tool#focus-of"
 rel="owl:inverseOf"><code>cgto:focus-of</code></a>
-
-Sub-property of:  
-<a href="http://rdfs.org/sioc/spec/#term_space_of"
-rel="rdfs:subPropertyOf"
-resource="http://rdfs.org/sioc/ns#space_of"><code>sioc:space_of</code></a>
 
 <a href="https://vocab.methodandstructure.com/graph-tool#"
 rel="rdfs:isDefinedBy">Back to Top</a>
@@ -260,21 +257,94 @@ typeof="owl:ObjectProperty owl:InverseFunctionalProperty">
 
 #### `focus-of`
 
-The entity that takes primary focus in the space is what will be shown,
-e.g. on the front page of a Web app.
+This property relates the focus back to the user state.
 
 Range:  
-<a href="https://vocab.methodandstructure.com/graph-tool#Space"
-rel="rdfs:range"><code>cgto:Space</code></a>
+<a href="https://vocab.methodandstructure.com/graph-tool#State"
+rel="rdfs:range"><code>cgto:State</code></a>
 
 Inverse of:  
 <a href="https://vocab.methodandstructure.com/graph-tool#focus"
 rel="owl:inverseOf"><code>cgto:focus</code></a>
 
-Sub-property of:  
-<a href="http://rdfs.org/sioc/spec/#term_has_space"
-rel="rdfs:subPropertyOf"
-resource="http://rdfs.org/sioc/ns#has_space"><code>sioc:space_of</code></a>
+<a href="https://vocab.methodandstructure.com/graph-tool#"
+rel="rdfs:isDefinedBy">Back to Top</a>
+
+</div>
+
+<div id="owner" class="section" about="cgto:owner"
+typeof="owl:ObjectProperty owl:InverseFunctionalProperty">
+
+#### `owner`
+
+This property relates a `cgto:State` to the `foaf:Agent` associated with
+it.
+
+This property and its relatives originally related to
+`foaf:OnlineAccount`—and may again—although for operational reasons this
+was inconvenient at the time (2025-03-12).
+
+Domain:  
+<a href="https://vocab.methodandstructure.com/graph-tool#State"
+rel="rdfs:domain"><code>cgto:State</code></a>
+
+Range:  
+<a href="http://xmlns.com/foaf/spec/#term_Agent" rel="rdfs:range"
+resource="foaf:Agent"><code>foaf:Agent</code></a>
+
+Inverse of:  
+<a href="https://vocab.methodandstructure.com/graph-tool#state"
+rel="owl:inverseOf"><code>cgto:state</code></a>
+
+<a href="https://vocab.methodandstructure.com/graph-tool#"
+rel="rdfs:isDefinedBy">Back to Top</a>
+
+</div>
+
+<div id="state" class="section" about="cgto:state"
+typeof="owl:ObjectProperty owl:InverseFunctionalProperty">
+
+#### `state`
+
+This property relates a `cgto:State` to the `foaf:Agent` associated with
+it.
+
+Domain:  
+<a href="http://xmlns.com/foaf/spec/#term_Agent" rel="rdfs:domain"
+resource="foaf:Agent"><code>foaf:Agent</code></a>
+
+Range:  
+<a href="https://vocab.methodandstructure.com/graph-tool#State"
+rel="rdfs:range"><code>cgto:State</code></a>
+
+Inverse of:  
+<a href="https://vocab.methodandstructure.com/graph-tool#owner"
+rel="owl:inverseOf"><code>cgto:state</code></a>
+
+<a href="https://vocab.methodandstructure.com/graph-tool#"
+rel="rdfs:isDefinedBy">Back to Top</a>
+
+</div>
+
+<div id="user" class="section" about="cgto:user"
+typeof="owl:ObjectProperty owl:InverseFunctionalProperty">
+
+#### `user`
+
+This property relates the `cgto:Index` to the `foaf:Agent` that
+reprsents the current user.
+
+Domain:  
+<a href="https://vocab.methodandstructure.com/graph-tool#Index"
+rel="rdfs:domain"><code>cgto:Index</code></a>
+
+Range:  
+<a href="http://xmlns.com/foaf/spec/#term_Agent" rel="rdfs:range"
+resource="foaf:Agent"><code>foaf:Agent</code></a>
+
+Inverse of:  
+<a href="https://vocab.methodandstructure.com/graph-tool#owner"
+rel="owl:inverseOf"><code>cgto:state</code></a>
 
 <a href="https://vocab.methodandstructure.com/graph-tool#"
 rel="rdfs:isDefinedBy">Back to Top</a>
@@ -452,6 +522,138 @@ rel="rdfs:range"><code>cgto:Summary</code></a>
 Sub-property of:  
 <a href="https://vocab.methodandstructure.com/graph-tool#summary"
 rel="rdfs:subPropertyOf"><code>cgto:summary</code></a>
+
+<a href="https://vocab.methodandstructure.com/graph-tool#"
+rel="rdfs:isDefinedBy">Back to Top</a>
+
+</div>
+
+</div>
+
+<div id="sec-inventories" class="section">
+
+### Inventories
+
+<div id="instance-of" class="section" about="cgto:instance-of"
+typeof="owl:ObjectProperty">
+
+#### `instance-of`
+
+The parameter specifying the classes that resources selected into the
+inventory are instances of.
+
+Domain:  
+<a href="https://vocab.methodandstructure.com/graph-tool#Inventory"
+rel="rdfs:domain"><code>cgto:Inventory</code></a>
+
+Range:  
+<a href="https://www.w3.org/TR/rdf11-schema/#ch_class" rel="rdfs:range"
+resource="rdfs:Class"><code>rdfs:Class</code></a>
+
+<a href="https://vocab.methodandstructure.com/graph-tool#"
+rel="rdfs:isDefinedBy">Back to Top</a>
+
+</div>
+
+<div id="instance-of" class="section" about="cgto:instance-of"
+typeof="owl:ObjectProperty">
+
+#### `instance-of`
+
+The parameter specifying the classes that resources selected into the
+inventory are instances of.
+
+Domain:  
+<a href="https://vocab.methodandstructure.com/graph-tool#Inventory"
+rel="rdfs:domain"><code>cgto:Inventory</code></a>
+
+Range:  
+<a href="https://www.w3.org/TR/rdf11-schema/#ch_class" rel="rdfs:range"
+resource="rdfs:Class"><code>rdfs:Class</code></a>
+
+<a href="https://vocab.methodandstructure.com/graph-tool#"
+rel="rdfs:isDefinedBy">Back to Top</a>
+
+</div>
+
+<div id="in-domain-of" class="section" about="cgto:in-domain-of"
+typeof="owl:ObjectProperty">
+
+#### `in-domain-of`
+
+The parameter specifying the property that resources selected into the
+inventory are in the domain of.
+
+Domain:  
+<a href="https://vocab.methodandstructure.com/graph-tool#Inventory"
+rel="rdfs:domain"><code>cgto:Inventory</code></a>
+
+Range:  
+<a href="https://www.w3.org/TR/rdf11-schema/#ch_property"
+rel="rdfs:range" resource="rdf:Property"><code>rdf:Property</code></a>
+
+<a href="https://vocab.methodandstructure.com/graph-tool#"
+rel="rdfs:isDefinedBy">Back to Top</a>
+
+</div>
+
+<div id="in-range-of" class="section" about="cgto:in-range-of"
+typeof="owl:ObjectProperty">
+
+#### `in-range-of`
+
+The parameter specifying the property that resources selected into the
+inventory are in the range of.
+
+Domain:  
+<a href="https://vocab.methodandstructure.com/graph-tool#Inventory"
+rel="rdfs:domain"><code>cgto:Inventory</code></a>
+
+Range:  
+<a href="https://www.w3.org/TR/rdf11-schema/#ch_property"
+rel="rdfs:range" resource="rdf:Property"><code>rdf:Property</code></a>
+
+<a href="https://vocab.methodandstructure.com/graph-tool#"
+rel="rdfs:isDefinedBy">Back to Top</a>
+
+</div>
+
+<div id="asserted" class="section" about="cgto:asserted"
+typeof="owl:DatatypeProperty">
+
+#### `asserted`
+
+Specifies whether the inventory includes resources that are asserted
+from the parameters (assumed to be true).
+
+Domain:  
+<a href="https://vocab.methodandstructure.com/graph-tool#Inventory"
+rel="rdfs:domain"><code>cgto:Inventory</code></a>
+
+Range:  
+<a href="https://www.w3.org/TR/xmlschema-2/#boolean" rel="rdfs:range"
+resource="xsd:boolean"><code>xsd:boolean</code></a>
+
+<a href="https://vocab.methodandstructure.com/graph-tool#"
+rel="rdfs:isDefinedBy">Back to Top</a>
+
+</div>
+
+<div id="inferred" class="section" about="cgto:inferred"
+typeof="owl:DatatypeProperty">
+
+#### `inferred`
+
+Specifies whether the inventory includes resources that are inferred
+from the parameters, irrespective of whether they are asserted.
+
+Domain:  
+<a href="https://vocab.methodandstructure.com/graph-tool#Inventory"
+rel="rdfs:domain"><code>cgto:Inventory</code></a>
+
+Range:  
+<a href="https://www.w3.org/TR/xmlschema-2/#boolean" rel="rdfs:range"
+resource="xsd:boolean"><code>xsd:boolean</code></a>
 
 <a href="https://vocab.methodandstructure.com/graph-tool#"
 rel="rdfs:isDefinedBy">Back to Top</a>
